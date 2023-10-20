@@ -2,3 +2,13 @@ C:\Users\mkbof\source\repos\MKB-codin\001_CWRK-Software-design-and-implementatio
 C:\Users\mkbof\source\repos\MKB-codin\001_CWRK-Software-design-and-implementation-exercise\SED_Coursework\SED_Coursework\obj\Debug\net6.0\SED_Coursework.AssemblyInfoInputs.cache
 C:\Users\mkbof\source\repos\MKB-codin\001_CWRK-Software-design-and-implementation-exercise\SED_Coursework\SED_Coursework\obj\Debug\net6.0\SED_Coursework.AssemblyInfo.cs
 C:\Users\mkbof\source\repos\MKB-codin\001_CWRK-Software-design-and-implementation-exercise\SED_Coursework\SED_Coursework\obj\Debug\net6.0\SED_Coursework.csproj.CoreCompileInputs.cache
+C:\Users\mkbof\source\repos\MKB-codin\001_CWRK-Software-design-and-implementation-exercise\SED_Coursework\SED_Coursework\bin\Debug\net6.0\SED_Coursework.exe
+C:\Users\mkbof\source\repos\MKB-codin\001_CWRK-Software-design-and-implementation-exercise\SED_Coursework\SED_Coursework\bin\Debug\net6.0\SED_Coursework.deps.json
+C:\Users\mkbof\source\repos\MKB-codin\001_CWRK-Software-design-and-implementation-exercise\SED_Coursework\SED_Coursework\bin\Debug\net6.0\SED_Coursework.runtimeconfig.json
+C:\Users\mkbof\source\repos\MKB-codin\001_CWRK-Software-design-and-implementation-exercise\SED_Coursework\SED_Coursework\bin\Debug\net6.0\SED_Coursework.dll
+C:\Users\mkbof\source\repos\MKB-codin\001_CWRK-Software-design-and-implementation-exercise\SED_Coursework\SED_Coursework\bin\Debug\net6.0\SED_Coursework.pdb
+C:\Users\mkbof\source\repos\MKB-codin\001_CWRK-Software-design-and-implementation-exercise\SED_Coursework\SED_Coursework\obj\Debug\net6.0\SED_Coursework.dll
+C:\Users\mkbof\source\repos\MKB-codin\001_CWRK-Software-design-and-implementation-exercise\SED_Coursework\SED_Coursework\obj\Debug\net6.0\refint\SED_Coursework.dll
+C:\Users\mkbof\source\repos\MKB-codin\001_CWRK-Software-design-and-implementation-exercise\SED_Coursework\SED_Coursework\obj\Debug\net6.0\SED_Coursework.pdb
+C:\Users\mkbof\source\repos\MKB-codin\001_CWRK-Software-design-and-implementation-exercise\SED_Coursework\SED_Coursework\obj\Debug\net6.0\SED_Coursework.genruntimeconfig.cache
+C:\Users\mkbof\source\repos\MKB-codin\001_CWRK-Software-design-and-implementation-exercise\SED_Coursework\SED_Coursework\obj\Debug\net6.0\ref\SED_Coursework.dll

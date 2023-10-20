@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SED_Coursework
 {
-    class System
+    class AdminSystem
     {
-        private string AdminPassword { get; set; }
+        private string AdminPassword { get; set; } = "pa$$w0rd";
 
         public bool CheckPassword(string password)
         {
@@ -18,10 +18,12 @@ namespace SED_Coursework
         
         public List<Cruise> Cruises;
         public List<Port> AvailablePorts; 
-        public System()
+        public List<Trip> AvailableTrips; 
+        public AdminSystem()
         {
             Cruises = new List<Cruise>();
             AvailablePorts = new List<Port>();
+            AvailableTrips = new List<Trip>();
         }
 
         public void AddCruise(Cruise pCruise)
@@ -57,6 +59,24 @@ namespace SED_Coursework
             else
             {
                 Console.WriteLine($"{pPort.PortName} was not found");
+            }
+        }
+
+        public void AddTrip(Trip pTrip)
+        {
+            AvailableTrips.Add(pTrip);
+            Console.WriteLine($"{pTrip.TripName} Added");
+        }
+        public void RemoveTrip(Trip pTrip)
+        {
+            if (AvailableTrips.Contains(pTrip))
+            {
+                AvailableTrips.Remove(pTrip);
+                Console.WriteLine($"{pTrip.TripName} Removed");
+            }
+            else
+            {
+                Console.WriteLine($"{pTrip.TripName} was not found");
             }
         }
     }
@@ -112,6 +132,11 @@ namespace SED_Coursework
             {
                 Console.WriteLine($"{pPassanger.Name} was not found");
             }
+        }
+
+        public override string ToString()
+        {
+            return $"{this.CruiseName} ({this.CruiseID})";
         }
     }
 
