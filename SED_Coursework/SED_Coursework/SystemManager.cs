@@ -190,11 +190,17 @@ namespace SED_Coursework
 
         public List<Trip> PortTrips;
 
-        public Port()
+        public Port(string pPortName)
         {
+            PortName = pPortName;
             PortTrips = new List<Trip>();
             PortID = NextPortID;
             NextPortID++;
+        }
+
+        public override string ToString()
+        {
+            return $"ID:{PortID}, {PortName}";
         }
 
         public void AddTrip(Trip pTrip)

@@ -109,8 +109,8 @@ namespace SED_Coursework
         public override void CreateMenu()
         {
             _menuItems.Clear();
-            _menuItems.Add(new AddPortMenu(_system));
-            if (_system.Passangers.Count > 0)
+            _menuItems.Add(new AddPortMenuItem(_system));
+            if (_system.AvailablePorts.Count > 0)
             {
                 _menuItems.Add(new ViewPortMenu(_system));
             }
@@ -121,17 +121,21 @@ namespace SED_Coursework
             return "Manage Ports";
         }
     }
-    class AddPortMenu : ConsoleMenu
+    class AddPortMenuItem : MenuItem
     {
         AdminSystem _system;
-        public AddPortMenu(AdminSystem system)
+        public AddPortMenuItem(AdminSystem system)
         {
             _system = system;
         }
 
-        public override void CreateMenu()
+        public override void Select()
         {
-            throw new NotImplementedException();
+            string newPortName = "Sample Port Name";
+            Console.WriteLine("What is the name of the port?");
+            newPortName = Console.ReadLine();
+            Port newPort = new Port(newPortName);
+            _system.AvailablePorts.Add(newPort);
         }
         public override string MenuText()
         {
@@ -147,11 +151,32 @@ namespace SED_Coursework
         }
         public override void CreateMenu()
         {
-            throw new NotImplementedException();
+            _menuItems.Clear();
+            foreach(Port port in _system.AvailablePorts.OrderBy(o => o.PortID))
+            { 
+                _menuItems.Add(new ViewPortMenuItem(port));
+            }
+            _menuItems.Add(new ExitMenuItem(this));
         }
         public override string MenuText()
         {
             return "View Port(s)";
+        }
+    }
+    class ViewPortMenuItem : MenuItem
+    {
+        Port _port;
+        public ViewPortMenuItem(Port port)
+        {
+            _port = port;
+        }
+        public override void Select()
+        {
+            throw new NotImplementedException();
+        }
+        public override string MenuText()
+        {
+            return _port.ToString();
         }
     }
     #endregion
