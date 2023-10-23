@@ -18,11 +18,13 @@ namespace SED_Coursework
         
         public List<Cruise> Cruises;
         public List<Port> AvailablePorts; 
+        public List<Passanger> Passangers; 
         public List<Trip> AvailableTrips; 
         public AdminSystem()
         {
             Cruises = new List<Cruise>();
             AvailablePorts = new List<Port>();
+            Passangers = new List<Passanger>();
             AvailableTrips = new List<Trip>();
         }
 
