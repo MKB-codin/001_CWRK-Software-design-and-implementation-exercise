@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SED_Coursework
 {
+    #region MainMenu
     class SystemManagerMenu : ConsoleMenu
     {
         AdminSystem _system;
@@ -29,7 +30,9 @@ namespace SED_Coursework
         }
 
     }
+    #endregion
 
+    #region Cruises
     class ManageCruisesMenu : ConsoleMenu
     {
         AdminSystem _system;
@@ -92,6 +95,7 @@ namespace SED_Coursework
             return "View Cruises";
         }
     }
+#endregion
 
     #region Ports
     class ManagePortsMenu : ConsoleMenu
@@ -116,7 +120,6 @@ namespace SED_Coursework
             return "Manage Ports";
         }
     }
-
     class AddPortMenu : ConsoleMenu
     {
         AdminSystem _system;
@@ -150,11 +153,9 @@ namespace SED_Coursework
             return "View Port(s)";
         }
     }
+    #endregion
 
-
-
-
-
+    #region Passangers
     class ManagePassangersMenu : ConsoleMenu
     {
         AdminSystem _system;
@@ -210,9 +211,9 @@ namespace SED_Coursework
             return "View Passanger(s)";
         }
     }
+    #endregion
 
-
-
+    #region Trips
     class ManageTripsMenu : ConsoleMenu
     {
         AdminSystem _system;
@@ -268,4 +269,5 @@ namespace SED_Coursework
             return "View Trip(s)";
         }
     }
+    #endregion
 }
