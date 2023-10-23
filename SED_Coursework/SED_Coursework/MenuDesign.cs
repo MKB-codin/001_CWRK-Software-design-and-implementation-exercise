@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -178,23 +179,42 @@ namespace SED_Coursework
             return "Manage Passangers";
         }
     }
-    class AddPassangerMenu : ConsoleMenu
+    class AddPassangerMenu : MenuItem
     {
         AdminSystem _system;
         public AddPassangerMenu(AdminSystem system)
         {
             _system = system;
         }
-
-        public override void CreateMenu()
-        {
-            throw new NotImplementedException();
-        }
         public override string MenuText()
         {
             return "Add Passanger";
         }
+        public override void Select()
+        {
+            string newPassangerFName;
+            string newPassangerSName;
+            int newPassangerPassportNumber = 0;
+
+            Console.WriteLine("What is the passanger's first name?");
+            newPassangerFName = Console.ReadLine();
+            Console.WriteLine("What is the passanger's surname?");
+            newPassangerSName = Console.ReadLine();
+            while (true)
+            {
+                Console.WriteLine("What is their Passport ID (9 digits)");
+                newPassangerPassportNumber = int.Parse(Console.ReadLine());
+                if(newPassangerPassportNumber.ToString().Length == 9)
+                {
+                    break;
+                }
+            }
+            Passanger newPassanger = new Passanger(newPassangerFName, newPassangerSName, newPassangerPassportNumber);
+            _system.AddPassanger(newPassanger);
+        }
     }
+
+
     class ViewPassangersMenu : ConsoleMenu
     {
         AdminSystem _system;
@@ -204,11 +224,33 @@ namespace SED_Coursework
         }
         public override void CreateMenu()
         {
+            _menuItems.Clear();
+            foreach(Passanger passanger in _system.Passangers.OrderBy(o => o.Passport))
+            {
+                _menuItems.Add(new ViewPassangerMenuItem(passanger));
+            }
+            _menuItems.Add(new ExitMenuItem(this));
+        }
+
+        public override string MenuText()
+        {
+            return "View Passanger(s)";
+        }
+    }
+    class ViewPassangerMenuItem : MenuItem
+    {
+        Passanger _passanger;
+        public ViewPassangerMenuItem(Passanger passanger)
+        {
+            _passanger = passanger;
+        }
+        public override void Select()
+        {
             throw new NotImplementedException();
         }
         public override string MenuText()
         {
-            return "View Passanger(s)";
+            return _passanger.ToString();
         }
     }
     #endregion

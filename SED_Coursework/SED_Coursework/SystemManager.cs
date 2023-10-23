@@ -31,54 +31,72 @@ namespace SED_Coursework
         public void AddCruise(Cruise pCruise)
         {
             Cruises.Add(pCruise);
-            Console.WriteLine($"{pCruise.CruiseName} Added");
+            Console.WriteLine($"{pCruise.CruiseName} added to system\n");
         }
         public void RemoveCruise(Cruise pCruise)
         {
             if (Cruises.Contains(pCruise))
             {
                 Cruises.Remove(pCruise);
-                Console.WriteLine($"{pCruise.CruiseName} Removed");
+                Console.WriteLine($"{pCruise.CruiseName} removed from system\n");
             }
             else
             {
-                Console.WriteLine($"{pCruise.CruiseName} was not found");
+                Console.WriteLine($"{pCruise.CruiseName} was not found\n");
             }
         }
 
         public void AddPort(Port pPort)
         {
             AvailablePorts.Add(pPort);
-            Console.WriteLine($"{pPort.PortName} Added");
+            Console.WriteLine($"{pPort.PortName} added to system\n");
         }
         public void RemovePort(Port pPort)
         {
             if (AvailablePorts.Contains(pPort))
             {
                 AvailablePorts.Remove(pPort);
-                Console.WriteLine($"{pPort.PortName} Removed");
+                Console.WriteLine($"{pPort.PortName} removed from system\n");
             }
             else
             {
-                Console.WriteLine($"{pPort.PortName} was not found");
+                Console.WriteLine($"{pPort.PortName} was not found\n");
+            }
+        }
+
+        public void AddPassanger(Passanger pPassanger)
+        {
+            Passangers.Add(pPassanger);
+            Console.WriteLine($"{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) added to system\n");
+        }
+        public void RemovePassanger(Passanger pPassanger)
+        {
+            if (Passangers.Contains(pPassanger))
+            {
+                Passangers.Remove(pPassanger);
+                Console.WriteLine($"{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) removed from system\n");
+            }
+            else
+            {
+                Console.WriteLine($"{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) was not found\n");
             }
         }
 
         public void AddTrip(Trip pTrip)
         {
             AvailableTrips.Add(pTrip);
-            Console.WriteLine($"{pTrip.TripName} Added");
+            Console.WriteLine($"{pTrip.TripName} added to system\n");
         }
         public void RemoveTrip(Trip pTrip)
         {
             if (AvailableTrips.Contains(pTrip))
             {
                 AvailableTrips.Remove(pTrip);
-                Console.WriteLine($"{pTrip.TripName} Removed");
+                Console.WriteLine($"{pTrip.TripName} removed from system\n");
             }
             else
             {
-                Console.WriteLine($"{pTrip.TripName} was not found");
+                Console.WriteLine($"{pTrip.TripName} was not found\n");
             }
         }
     }
@@ -89,50 +107,50 @@ namespace SED_Coursework
         public int CruiseID { get; private set; }
         private static int NextCruiseID { get; set; } = 1;
 
-        List<Passanger> Passangers;
-        List<Port> Ports;
+        List<Passanger> CruisePassangers;
+        List<Port> CruisePorts;
                 
         public Cruise()
         {
             CruiseID = NextCruiseID;
             NextCruiseID++;
-            Passangers = new List<Passanger>();
-            Ports = new List<Port>();
+            CruisePassangers = new List<Passanger>();
+            CruisePorts = new List<Port>();
         }
 
         public void AddPort(Port pPort)
         {
-            Ports.Add(pPort);
-            Console.WriteLine($"{pPort.PortName} Added to {this.CruiseName}");
+            CruisePorts.Add(pPort);
+            Console.WriteLine($"{pPort.PortName} Added to {this.CruiseName}\n");
         }
         public void RemovePort(Port pPort)
         {
-            if (Ports.Contains(pPort))
+            if (CruisePorts.Contains(pPort))
             {
-                Ports.Remove(pPort);
-                Console.WriteLine($"{pPort.PortName} Removed from {this.CruiseName}");
+                CruisePorts.Remove(pPort);
+                Console.WriteLine($"{pPort.PortName} Removed from {this.CruiseName}\n");
             }
             else
             {
-                Console.WriteLine($"{pPort.PortName} was not found");
+                Console.WriteLine($"{pPort.PortName} was not found\n");
             }
         }
 
         public void AddPassanger(Passanger pPassanger)
         {
-            Passangers.Add(pPassanger);
-            Console.WriteLine($"{pPassanger.Name} Added to {this.CruiseName}");
+            CruisePassangers.Add(pPassanger);
+            Console.WriteLine($"{pPassanger.FName} Added to {this.CruiseName}\n");
         }
         public void RemovePassanger(Passanger pPassanger)
         {
-            if (Passangers.Contains(pPassanger))
+            if (CruisePassangers.Contains(pPassanger))
             {
-                Passangers.Remove(pPassanger);
-                Console.WriteLine($"{pPassanger.Name} Removed from {this.CruiseName}");
+                CruisePassangers.Remove(pPassanger);
+                Console.WriteLine($"{pPassanger.FName} Removed from {this.CruiseName}\n");
             }
             else
             {
-                Console.WriteLine($"{pPassanger.Name} was not found");
+                Console.WriteLine($"{pPassanger.FName} was not found\n");
             }
         }
 
@@ -144,12 +162,18 @@ namespace SED_Coursework
 
     class Passanger
     {
-        public string Name { get; set; }
+        public string FName { get; set; }
+        public string SName { get; set; }
         public int Passport { get; set; }
-        public Passanger(string name, int passport, List<Trip> trips)
+        public Passanger(string fname, string sname, int passport)
         {
-            Name = name;
+            FName = fname;
+            SName = sname;
             Passport = passport;
+        }
+        public override string ToString()
+        {
+            return $"{this.FName + this.SName} ({this.Passport})";
         }
     }
     class Port
@@ -158,30 +182,30 @@ namespace SED_Coursework
         public int PortID { get; private set; }
         private static int NextPortID { get; set; } = 1;
 
-        public List<Trip> Trips;
+        public List<Trip> PortTrips;
 
         public Port()
         {
-            Trips = new List<Trip>();
+            PortTrips = new List<Trip>();
             PortID = NextPortID;
             NextPortID++;
         }
 
         public void AddTrip(Trip pTrip)
         {
-            Trips.Add(pTrip);
-            Console.WriteLine($"{pTrip.TripName} Added to {this.PortName}");
+            PortTrips.Add(pTrip);
+            Console.WriteLine($"{pTrip.TripName} Added to {this.PortName}\n");
         }
         public void RemovePassanger(Trip pTrip)
         {
-            if (Trips.Contains(pTrip))
+            if (PortTrips.Contains(pTrip))
             {
-                Trips.Remove(pTrip);
-                Console.WriteLine($"{pTrip.TripName}  Removed from  {this.PortName}");
+                PortTrips.Remove(pTrip);
+                Console.WriteLine($"{pTrip.TripName}  Removed from  {this.PortName}\n");
             }
             else
             {
-                Console.WriteLine($"{pTrip.TripName} was not found");
+                Console.WriteLine($"{pTrip.TripName} was not found\n");
             }
         }
     }
@@ -190,26 +214,26 @@ namespace SED_Coursework
         public string TripName { get; set; }
         public int TripID { get; private set; }
         private int NextTripID { get; set; } = 1;
-        public List<Passanger> Passangers;
+        public List<Passanger> TripPassangers;
 
         public Trip(string ptripName, int ptripID,List<Passanger> pPassangers)
         {
             TripName = ptripName;
             TripID = ptripID;
             if(ptripID == NextTripID) { NextTripID++; } 
-            Passangers = pPassangers;
+            TripPassangers = pPassangers;
         }
         public Trip(string pTripName, List<Passanger> pPassangers)
         {
             TripName = pTripName;
-            Passangers = pPassangers;
+            TripPassangers = pPassangers;
             TripID = NextTripID;
             NextTripID++;
         }
         public Trip()
         {
             TripName = "Sample Trip Name";
-            Passangers = new List<Passanger>();
+            TripPassangers = new List<Passanger>();
             TripID = NextTripID;
             NextTripID++;
             
@@ -217,19 +241,19 @@ namespace SED_Coursework
 
         public void AddPassanger(Passanger pPassanger)
         {
-            Passangers.Add(pPassanger);
-            Console.WriteLine($"{pPassanger.Name} Added to {this.TripName}");
+            TripPassangers.Add(pPassanger);
+            Console.WriteLine($"{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) added to {this.TripName}\n");
         }
         public void RemovePassanger(Passanger pPassanger)
         {
-            if (Passangers.Contains(pPassanger))
+            if (TripPassangers.Contains(pPassanger))
             {
-                Passangers.Remove(pPassanger);
-                Console.WriteLine($"{pPassanger.Name} Removed from {this.TripName}");
+                TripPassangers.Remove(pPassanger);
+                Console.WriteLine($"{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) removed from {this.TripName}\n");
             }
             else
             {
-                Console.WriteLine($"{pPassanger.Name} was not found");
+                Console.WriteLine($"{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) was not found\n");
             }
         }
     }
