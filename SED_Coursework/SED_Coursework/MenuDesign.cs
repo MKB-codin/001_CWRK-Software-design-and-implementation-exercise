@@ -93,9 +93,7 @@ namespace SED_Coursework
         }
     }
 
-
-
-
+    #region Ports
     class ManagePortsMenu : ConsoleMenu
     {
         AdminSystem _system;
