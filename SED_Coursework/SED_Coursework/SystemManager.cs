@@ -32,6 +32,7 @@ namespace SED_Coursework
         {
             Cruises.Add(pCruise);
             Console.WriteLine($"{pCruise.CruiseName} added to system\n");
+            // NEEDS CHECK TO PREVENT DUPLICATES
         }
         public void RemoveCruise(Cruise pCruise)
         {
@@ -50,6 +51,7 @@ namespace SED_Coursework
         {
             AvailablePorts.Add(pPort);
             Console.WriteLine($"{pPort.PortName} added to system\n");
+            // NEEDS CHECK TO PREVENT DUPLICATES
         }
         public void RemovePort(Port pPort)
         {
@@ -68,6 +70,7 @@ namespace SED_Coursework
         {
             Passangers.Add(pPassanger);
             Console.WriteLine($"{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) added to system\n");
+            // NEEDS CHECK TO PREVENT DUPLICATES
         }
         public void RemovePassanger(Passanger pPassanger)
         {
@@ -86,6 +89,7 @@ namespace SED_Coursework
         {
             AvailableTrips.Add(pTrip);
             Console.WriteLine($"{pTrip.TripName} added to system\n");
+            // NEEDS CHECK TO PREVENT DUPLICATES
         }
         public void RemoveTrip(Trip pTrip)
         {
@@ -122,6 +126,7 @@ namespace SED_Coursework
         {
             CruisePorts.Add(pPort);
             Console.WriteLine($"{pPort.PortName} Added to {this.CruiseName}\n");
+            // NEEDS CHECK TO PREVENT DUPLICATES
         }
         public void RemovePort(Port pPort)
         {
@@ -140,6 +145,7 @@ namespace SED_Coursework
         {
             CruisePassangers.Add(pPassanger);
             Console.WriteLine($"{pPassanger.FName} Added to {this.CruiseName}\n");
+            // NEEDS CHECK TO PREVENT DUPLICATES
         }
         public void RemovePassanger(Passanger pPassanger)
         {
@@ -195,6 +201,7 @@ namespace SED_Coursework
         {
             PortTrips.Add(pTrip);
             Console.WriteLine($"{pTrip.TripName} Added to {this.PortName}\n");
+            // NEEDS CHECK TO PREVENT DUPLICATES
         }
         public void RemovePassanger(Trip pTrip)
         {
@@ -230,19 +237,32 @@ namespace SED_Coursework
             TripID = NextTripID;
             NextTripID++;
         }
+        public Trip(string pTripName)
+        {
+            TripName = pTripName;
+            TripPassangers = new List<Passanger>();
+            TripID = NextTripID;
+            NextTripID++;
+            
+        }
         public Trip()
         {
             TripName = "Sample Trip Name";
             TripPassangers = new List<Passanger>();
             TripID = NextTripID;
             NextTripID++;
-            
+        }
+
+        public override string ToString()
+        {
+            return $"ID:{TripID}, {TripName}";
         }
 
         public void AddPassanger(Passanger pPassanger)
         {
             TripPassangers.Add(pPassanger);
             Console.WriteLine($"{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) added to {this.TripName}\n");
+            // NEEDS CHECK TO PREVENT DUPLICATES
         }
         public void RemovePassanger(Passanger pPassanger)
         {

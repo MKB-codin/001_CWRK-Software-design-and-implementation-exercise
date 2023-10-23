@@ -266,8 +266,8 @@ namespace SED_Coursework
         public override void CreateMenu()
         {
             _menuItems.Clear();
-            _menuItems.Add(new AddTripMenu(_system));
-            if (_system.Passangers.Count > 0)
+            _menuItems.Add(new AddTripMenuItem(_system));
+            if (_system.AvailableTrips.Count > 0)
             {
                 _menuItems.Add(new ViewTripsMenu(_system));
             }
@@ -278,17 +278,21 @@ namespace SED_Coursework
             return "Manage Trips";
         }
     }
-    class AddTripMenu : ConsoleMenu
+    class AddTripMenuItem : MenuItem
     {
         AdminSystem _system;
-        public AddTripMenu(AdminSystem system)
+        public AddTripMenuItem(AdminSystem system)
         {
             _system = system;
         }
 
-        public override void CreateMenu()
+        public override void Select()
         {
-            throw new NotImplementedException();
+            string newTripName = "Sample Name";
+            Console.WriteLine("Enter Trip Name");
+            newTripName = Console.ReadLine();
+            Trip newTrip = new Trip(newTripName);
+            _system.AddTrip(newTrip);
         }
         public override string MenuText()
         {
@@ -304,11 +308,32 @@ namespace SED_Coursework
         }
         public override void CreateMenu()
         {
-            throw new NotImplementedException();
+            _menuItems.Clear();
+            foreach (Trip trip in _system.AvailableTrips.OrderBy(o => o.TripID))
+            {
+                _menuItems.Add(new ViewTripMenuItem(trip));
+            }
+            _menuItems.Add(new ExitMenuItem(this));
         }
         public override string MenuText()
         {
             return "View Trip(s)";
+        }
+    }
+    class ViewTripMenuItem : MenuItem
+    {
+        Trip _trip;
+        public ViewTripMenuItem(Trip trip)
+        {
+            _trip = trip;
+        }
+        public override void Select()
+        {
+            throw new NotImplementedException();
+        }
+        public override string MenuText()
+        {
+            return _trip.ToString();
         }
     }
     #endregion
