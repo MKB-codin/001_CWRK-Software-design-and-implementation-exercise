@@ -114,8 +114,17 @@ namespace SED_Coursework
         List<Passanger> CruisePassangers;
         List<Port> CruisePorts;
                 
+        public Cruise(string pCruiseName)
+        {
+            CruiseName = pCruiseName;
+            CruiseID = NextCruiseID;
+            NextCruiseID++;
+            CruisePassangers = new List<Passanger>();
+            CruisePorts = new List<Port>();
+        }
         public Cruise()
         {
+            CruiseName = "Sample Cruise Name";
             CruiseID = NextCruiseID;
             NextCruiseID++;
             CruisePassangers = new List<Passanger>();

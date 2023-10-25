@@ -44,7 +44,7 @@ namespace SED_Coursework
         public override void CreateMenu()
         {
             _menuItems.Clear();
-            _menuItems.Add(new AddCruiseMenu(_system));
+            _menuItems.Add(new AddCruiseMenuItem(_system));
             if(_system.Cruises.Count > 0)
             {
                 _menuItems.Add(new ViewCruisesMenu(_system));
@@ -58,16 +58,19 @@ namespace SED_Coursework
         }
         
     }
-    class AddCruiseMenu : ConsoleMenu
+    class AddCruiseMenuItem : MenuItem
     {
         AdminSystem _system;
-        public AddCruiseMenu(AdminSystem system)
+        public AddCruiseMenuItem(AdminSystem system)
         {
             _system = system;
         }
-        public override void CreateMenu()
-        {
-            throw new NotImplementedException();
+        public override void Select()
+        { 
+            Console.WriteLine("Enter Cruise Name:");
+            string newCruiseName = Console.ReadLine();
+            Cruise newCruise = new Cruise(newCruiseName);
+            _system.AddCruise(newCruise);
         }
         public override string MenuText()
         {
@@ -88,12 +91,30 @@ namespace SED_Coursework
             _menuItems.Clear();
             foreach (Cruise cruise in _system.Cruises.OrderBy(o => o.CruiseID).ToList())
             {
-                Console.WriteLine("BRUH");
+                _menuItems.Add(new ViewCruiseMenuItem(cruise));
             }
+            _menuItems.Add(new ExitMenuItem(this));
         }
         public override string MenuText()
         {
             return "View Cruises";
+        }
+    }
+    class ViewCruiseMenuItem : MenuItem
+    {
+        Cruise _Cruise;
+
+        public ViewCruiseMenuItem(Cruise cruise)
+        {
+            _Cruise = cruise;
+        }
+        public override void Select()
+        {
+            throw new NotImplementedException();
+        }
+        public override string MenuText()
+        {
+            return _Cruise.ToString();
         }
     }
 #endregion
