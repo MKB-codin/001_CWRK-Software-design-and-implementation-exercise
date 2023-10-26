@@ -203,6 +203,10 @@ namespace SED_Coursework
             this.AssignedCruiseID = pCruiseID;
             Console.WriteLine($"{pCruiseID} was assinged to {this.ToString()}");
         }
+        public void UnAssignCruiseFromPassanger()
+        {
+            this.AssignedCruiseID = -1;
+        }
         public void AddToAssignedTrips(Trip pTrip)
         {
             this.AssignedTrips.Add(pTrip);

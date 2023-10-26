@@ -295,6 +295,11 @@ namespace SED_Coursework
         public override void CreateMenu()
         {
             _menuItems.Clear();
+            _menuItems.Add(new AssignCruiseToPassangerMenu(_system.Cruises, _passanger));
+            if ( !_passanger.IsCruiseAssignedToPassanger())
+            {
+                _menuItems.Add(new ViewPassangerCruiseMenuItem(_passanger));
+            }
             _menuItems.Add(new RemovePassanger_SystemMenuItem(_system, _passanger));
             _menuItems.Add(new ExitMenuItem(this));
         }
@@ -303,16 +308,81 @@ namespace SED_Coursework
             return _passanger.ToString();
         }
     }
-
-    class ViewPassangerCruiseMenuItem : MenuItem
+    class AssignCruiseToPassangerMenu : ConsoleMenu
     {
-        public override void Select()
+        List<Cruise> _Cruises;
+        Passanger _Passanger;
+        public AssignCruiseToPassangerMenu(List<Cruise> cruises, Passanger passanger)
         {
-            throw new NotImplementedException();
+            _Cruises = cruises;
+            _Passanger = passanger;
+
+        }
+        public override void CreateMenu()
+        {
+            _menuItems.Clear();
+            foreach (Cruise cruise in _Cruises.OrderBy(o => o.CruiseID))
+            {
+                _menuItems.Add(new AssignCruiseToPassangerMenuItem(cruise,_Passanger));
+            }
+            _menuItems.Add(new ExitMenuItem(this));
         }
         public override string MenuText()
         {
-            throw new NotImplementedException();
+            return "Assign Cruise to Passanger";
+        }
+    }
+    class AssignCruiseToPassangerMenuItem : MenuItem
+    {
+        Cruise _Cruise;
+        Passanger _Passanger;
+        public AssignCruiseToPassangerMenuItem(Cruise cruise, Passanger passanger)
+        {
+            _Cruise = cruise;
+            _Passanger = passanger;
+        }
+
+        public override void Select()
+        {
+            _Passanger.AssignCruiseToPassanger(_Cruise.CruiseID);
+            Console.WriteLine("\nCruise Assigned\n");
+            
+        }
+        public override string MenuText()
+        {
+            return _Cruise.ToString();
+        }
+    }
+    class ViewPassangerCruiseMenuItem : MenuItem
+    {
+        Passanger _passanger;
+        public ViewPassangerCruiseMenuItem(Passanger passanger)
+        {
+            _passanger = passanger;
+        }
+        public override void Select()
+        {
+            Console.WriteLine($"{_passanger.ToString()} Assigned to Cruise with ID: {_passanger.AssignedCruiseID}");
+        }
+        public override string MenuText()
+        {
+            return "View Cruise Assigned to Passanger";
+        }
+    }
+    class UnAssignCruiseFromPassangerMenuItem : MenuItem
+    {
+        Passanger _Passanger;
+        public UnAssignCruiseFromPassangerMenuItem(Passanger passanger)
+        {
+            _Passanger = passanger;
+        }
+        public override void Select()
+        {
+            _Passanger.UnAssignCruiseFromPassanger();
+        }
+        public override string MenuText()
+        {
+            return "UnAssign Cruise from Passanger";
         }
     }
     class RemovePassanger_SystemMenuItem : MenuItem
