@@ -180,11 +180,39 @@ namespace SED_Coursework
         public string FName { get; set; }
         public string SName { get; set; }
         public int Passport { get; set; }
+        public int AssignedCruiseID { get; private set; } 
+        List<Trip> AssignedTrips = new List<Trip>();
         public Passanger(string fname, string sname, int passport)
         {
             FName = fname;
             SName = sname;
             Passport = passport;
+            AssignedTrips = new List<Trip>();
+        }
+
+        public void AssignCruiseToPassanger(int pCruiseID)
+        {
+            this.AssignedCruiseID = pCruiseID;
+            Console.WriteLine($"{pCruiseID} was assinged to {this.ToString()}");
+        }
+        public void AddToAssignedTrips(Trip pTrip)
+        {
+            this.AssignedTrips.Add(pTrip);
+            Console.WriteLine($"{pTrip.ToString()} was assigned to {this.ToString()}");
+            //Add way to remove duplicates and implement a way so they can only have valid trips ie trips that are on the ports they are going to
+            // make them pay extra for going on more trips than they are allowed to.
+        }
+        public void RemoveAssignedTrip(Trip pTrip)
+        {
+            if (this.AssignedTrips.Contains(pTrip))
+            {
+                this.AssignedTrips.Remove(pTrip);
+                Console.WriteLine($"{pTrip.ToString()} was removed from {this.ToString()}");
+            }
+            else
+            {
+                Console.WriteLine($"{pTrip.ToString()} was not found");
+            }
         }
         public override string ToString()
         {
@@ -218,12 +246,12 @@ namespace SED_Coursework
             Console.WriteLine($"{pTrip.TripName} Added to {this.PortName}\n");
             // NEEDS CHECK TO PREVENT DUPLICATES
         }
-        public void RemovePassanger(Trip pTrip)
+        public void RemoveTrip(Trip pTrip)
         {
             if (PortTrips.Contains(pTrip))
             {
                 PortTrips.Remove(pTrip);
-                Console.WriteLine($"{pTrip.TripName}  Removed from  {this.PortName}\n");
+                Console.WriteLine($"{pTrip.TripName} Removed from  {this.PortName}\n");
             }
             else
             {

@@ -273,7 +273,7 @@ namespace SED_Coursework
             _menuItems.Clear();
             foreach(Passanger passanger in _system.Passangers.OrderBy(o => o.Passport))
             {
-                _menuItems.Add(new ViewPassangerMenuItem(passanger));
+                _menuItems.Add(new ViewPassangerMenu(_system,passanger));
             }
             _menuItems.Add(new ExitMenuItem(this));
         }
@@ -283,20 +283,54 @@ namespace SED_Coursework
             return "View Passanger(s)";
         }
     }
-    class ViewPassangerMenuItem : MenuItem
+    class ViewPassangerMenu : ConsoleMenu
     {
+        AdminSystem _system;
         Passanger _passanger;
-        public ViewPassangerMenuItem(Passanger passanger)
+        public ViewPassangerMenu(AdminSystem system,Passanger passanger)
         {
+            _system = system;
             _passanger = passanger;
         }
+        public override void CreateMenu()
+        {
+            _menuItems.Clear();
+            _menuItems.Add(new RemovePassanger_SystemMenuItem(_system, _passanger));
+            _menuItems.Add(new ExitMenuItem(this));
+        }
+        public override string MenuText()
+        {
+            return _passanger.ToString();
+        }
+    }
+
+    class ViewPassangerCruiseMenuItem : MenuItem
+    {
         public override void Select()
         {
             throw new NotImplementedException();
         }
         public override string MenuText()
         {
-            return _passanger.ToString();
+            throw new NotImplementedException();
+        }
+    }
+    class RemovePassanger_SystemMenuItem : MenuItem
+    {
+        AdminSystem _system;
+        Passanger _passanger;
+        public RemovePassanger_SystemMenuItem(AdminSystem system, Passanger passanger)
+        {
+            _system = system;
+            _passanger = passanger;
+        }
+        public override void Select()
+        {
+            _system.RemovePassanger(_passanger);
+        }
+        public override string MenuText()
+        {
+            return "Remove Passanger from System";
         }
     }
     #endregion
