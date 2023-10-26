@@ -180,7 +180,7 @@ namespace SED_Coursework
         public string FName { get; set; }
         public string SName { get; set; }
         public int Passport { get; set; }
-        public int AssignedCruiseID { get; private set; } 
+        public int AssignedCruiseID { get; private set; } = -1;
         List<Trip> AssignedTrips = new List<Trip>();
         public Passanger(string fname, string sname, int passport)
         {
@@ -190,6 +190,14 @@ namespace SED_Coursework
             AssignedTrips = new List<Trip>();
         }
 
+        public bool IsCruiseAssignedToPassanger()
+        {
+            if(this.AssignedCruiseID == -1)
+            {
+                return true;
+            }
+            else { return false; }
+        }
         public void AssignCruiseToPassanger(int pCruiseID)
         {
             this.AssignedCruiseID = pCruiseID;
