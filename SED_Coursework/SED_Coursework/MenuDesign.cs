@@ -347,7 +347,9 @@ namespace SED_Coursework
         public override void Select()
         {
             _Passanger.AssignCruiseToPassanger(_Cruise.CruiseID);
-            Console.WriteLine("\nCruise Assigned\n");
+            _Passanger.fixCost();
+            _Passanger.CostOfTrip += _Cruise.CruiseCost;
+            Console.WriteLine($"\n{_Cruise.ToString()} Assigned to {_Passanger.ToString()}n");
             
         }
         public override string MenuText()
