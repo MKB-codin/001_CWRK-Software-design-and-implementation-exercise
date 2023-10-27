@@ -209,6 +209,8 @@ namespace SED_Coursework
         }
         public void UnAssignCruiseFromPassanger()
         {
+            this.CostOfTrip -= this.AssignedCruise.CruiseCost;
+            this.fixCost();
             this.AssignedCruise = null;
         }
         public void AddToAssignedTrips(Trip pTrip)
