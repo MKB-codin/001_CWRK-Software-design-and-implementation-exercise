@@ -69,7 +69,9 @@ namespace SED_Coursework
         { 
             Console.WriteLine("Enter Cruise Name:");
             string newCruiseName = Console.ReadLine();
-            Cruise newCruise = new Cruise(newCruiseName);
+            Console.WriteLine("What is the cost of the cruise?");
+            double newCruiseCost = double.Parse(Console.ReadLine());
+            Cruise newCruise = new Cruise(newCruiseName, newCruiseCost);
             _system.AddCruise(newCruise);
         }
         public override string MenuText()
