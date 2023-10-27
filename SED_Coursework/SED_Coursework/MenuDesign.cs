@@ -305,7 +305,7 @@ namespace SED_Coursework
             {
                 _menuItems.Add(new AssignCruiseToPassangerMenu(_system.Cruises, _passanger));
             }
-            _menuItems.Add(new ViewPassangerCostOfTrip(_passanger));
+            _menuItems.Add(new ViewPassangerPassangerTotalCost(_passanger));
             _menuItems.Add(new RemovePassanger_SystemMenuItem(_system, _passanger));
             _menuItems.Add(new ExitMenuItem(this));
         }
@@ -360,18 +360,18 @@ namespace SED_Coursework
             return _Cruise.ToString();
         }
     }
-    class ViewPassangerCostOfTrip : MenuItem
+    class ViewPassangerPassangerTotalCost : MenuItem
     {
         Passanger _Passanger;
-        public ViewPassangerCostOfTrip(Passanger passanger)
+        public ViewPassangerPassangerTotalCost(Passanger passanger)
         {
             _Passanger = passanger;
         }
 
         public override void Select()
         {
-            _Passanger.CalculateCostOfTrip();
-            Console.WriteLine($"£{Math.Round(_Passanger.CostOfTrip, 2)}\n");
+            _Passanger.CalculatePassangerTotalCost();
+            Console.WriteLine($"£{Math.Round(_Passanger.PassangerTotalCost, 2)}\n");
         }
         public override string MenuText()
         {

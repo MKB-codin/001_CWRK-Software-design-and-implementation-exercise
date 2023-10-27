@@ -186,7 +186,7 @@ namespace SED_Coursework
         public Cruise AssignedCruise { get; private set; }
         List<Trip> AssignedTrips = new List<Trip>();
         List<Trip> TripsThatDontComeFree = new List<Trip>();
-        public decimal CostOfTrip { get; set; } = 0;
+        public decimal PassangerTotalCost { get; set; } = 0;
         
         public Passanger(string fname, string sname, int passport)
         {
@@ -236,7 +236,7 @@ namespace SED_Coursework
                 Console.WriteLine($"{pTrip.ToString()} was not found");
             }
         }
-        public void CalculateCostOfTrip()
+        public void CalculatePassangerTotalCost()
         {
             decimal cost = 0;
             try { cost += this.AssignedCruise.CruiseCost; } catch (NullReferenceException e) { cost += 0; }
@@ -248,13 +248,13 @@ namespace SED_Coursework
                 }
             }
             catch (NullReferenceException e) { cost += 0; }
-            this.CostOfTrip = cost;
+            this.PassangerTotalCost = cost;
         }
         public void fixCost()
         {
-            if (this.CostOfTrip < 0)
+            if (this.PassangerTotalCost < 0)
             {
-                this.CostOfTrip = 0;
+                this.PassangerTotalCost = 0;
             }
         }
         public override string ToString()
