@@ -182,7 +182,7 @@ namespace SED_Coursework
         public string FName { get; set; }
         public string SName { get; set; }
         public int Passport { get; set; }
-        public int AssignedCruiseID { get; private set; } = -1;
+        public Cruise AssignedCruise { get; private set; }
         List<Trip> AssignedTrips = new List<Trip>();
         public double CostOfTrip { get; set; } = 0;
         
@@ -196,20 +196,20 @@ namespace SED_Coursework
 
         public bool IsCruiseAssignedToPassanger()
         {
-            if(this.AssignedCruiseID == -1)
+            if (this.AssignedCruise != null)
             {
                 return true;
             }
             else { return false; }
         }
-        public void AssignCruiseToPassanger(int pCruiseID)
+        public void AssignCruiseToPassanger(Cruise pCruise)
         {
-            this.AssignedCruiseID = pCruiseID;
-            Console.WriteLine($"{pCruiseID} was assinged to {this.ToString()}");
+            this.AssignedCruise = pCruise;
+            Console.WriteLine($"{pCruise.ToString()} was assinged to {this.ToString()}");
         }
         public void UnAssignCruiseFromPassanger()
         {
-            this.AssignedCruiseID = -1;
+            this.AssignedCruise = null;
         }
         public void AddToAssignedTrips(Trip pTrip)
         {
