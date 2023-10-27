@@ -368,7 +368,7 @@ namespace SED_Coursework
 
         public override void Select()
         {
-            Console.WriteLine($"£{_Passanger.CostOfTrip}");
+            Console.WriteLine($"£{_Passanger.CostOfTrip}\n");
         }
         public override string MenuText()
         {

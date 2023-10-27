@@ -241,7 +241,7 @@ namespace SED_Coursework
         }
         public override string ToString()
         {
-            return $"{this.FName + this.SName} ({this.Passport})";
+            return $"{this.FName} {this.SName} ({this.Passport})";
         }
     }
     class Port
