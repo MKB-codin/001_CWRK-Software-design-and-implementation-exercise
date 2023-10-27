@@ -185,6 +185,7 @@ namespace SED_Coursework
         public int AssignedCruiseID { get; private set; } = -1;
         List<Trip> AssignedTrips = new List<Trip>();
         public double CostOfTrip { get; set; } = 0;
+        
         public Passanger(string fname, string sname, int passport)
         {
             FName = fname;
@@ -227,6 +228,13 @@ namespace SED_Coursework
             else
             {
                 Console.WriteLine($"{pTrip.ToString()} was not found");
+            }
+        }
+        public void fixCost()
+        {
+            if (this.CostOfTrip < 0)
+            {
+                this.CostOfTrip = 0;
             }
         }
         public override string ToString()
