@@ -302,6 +302,7 @@ namespace SED_Coursework
             {
                 _menuItems.Add(new ViewPassangerCruiseMenuItem(_passanger));
             }
+            _menuItems.Add(new ViewPassangerCostOfTrip(_passanger));
             _menuItems.Add(new RemovePassanger_SystemMenuItem(_system, _passanger));
             _menuItems.Add(new ExitMenuItem(this));
         }
@@ -346,15 +347,32 @@ namespace SED_Coursework
 
         public override void Select()
         {
-            _Passanger.AssignCruiseToPassanger(_Cruise.CruiseID);
+            _Passanger.AssignCruiseToPassanger(_Cruise);
             _Passanger.fixCost();
             _Passanger.CostOfTrip += _Cruise.CruiseCost;
-            Console.WriteLine($"\n{_Cruise.ToString()} Assigned to {_Passanger.ToString()}n");
+            Console.WriteLine($"\n{_Cruise.ToString()} Assigned to {_Passanger.ToString()}\n");
             
         }
         public override string MenuText()
         {
             return _Cruise.ToString();
+        }
+    }
+    class ViewPassangerCostOfTrip : MenuItem
+    {
+        Passanger _Passanger;
+        public ViewPassangerCostOfTrip(Passanger passanger)
+        {
+            _Passanger = passanger;
+        }
+
+        public override void Select()
+        {
+            Console.WriteLine($"£{_Passanger.CostOfTrip}");
+        }
+        public override string MenuText()
+        {
+            return "View Cost of Trip";
         }
     }
     class ViewPassangerCruiseMenuItem : MenuItem
@@ -366,7 +384,7 @@ namespace SED_Coursework
         }
         public override void Select()
         {
-            Console.WriteLine($"{_passanger.ToString()} Assigned to Cruise with ID: {_passanger.AssignedCruiseID}");
+            Console.WriteLine($"{_passanger.ToString()} Assigned to Cruise with ID: {_passanger.AssignedCruise.ToString()}\n");
         }
         public override string MenuText()
         {

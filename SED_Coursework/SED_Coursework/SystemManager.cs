@@ -196,7 +196,7 @@ namespace SED_Coursework
 
         public bool IsCruiseAssignedToPassanger()
         {
-            if (this.AssignedCruise != null)
+            if (this.AssignedCruise == null)
             {
                 return true;
             }
