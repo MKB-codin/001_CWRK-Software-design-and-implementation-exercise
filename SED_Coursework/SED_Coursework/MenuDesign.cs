@@ -69,8 +69,7 @@ namespace SED_Coursework
         { 
             Console.WriteLine("Enter Cruise Name:");
             string newCruiseName = Console.ReadLine();
-            Console.WriteLine("What is the cost of the cruise?");
-            double newCruiseCost = double.Parse(Console.ReadLine());
+            decimal newCruiseCost = Math.Round(ConsoleHelpers.GetDecimalInRange(0, 10000000000, "Enter Cruise cost"),2);
             Cruise newCruise = new Cruise(newCruiseName, newCruiseCost);
             _system.AddCruise(newCruise);
         }
@@ -297,10 +296,14 @@ namespace SED_Coursework
         public override void CreateMenu()
         {
             _menuItems.Clear();
-            _menuItems.Add(new AssignCruiseToPassangerMenu(_system.Cruises, _passanger));
-            if ( !_passanger.IsCruiseAssignedToPassanger())
+            if ( _passanger.IsCruiseAssignedToPassanger())
             {
                 _menuItems.Add(new ViewPassangerCruiseMenuItem(_passanger));
+                _menuItems.Add(new UnAssignCruiseFromPassangerMenuItem(_passanger));
+            }
+            else
+            {
+                _menuItems.Add(new AssignCruiseToPassangerMenu(_system.Cruises, _passanger));
             }
             _menuItems.Add(new ViewPassangerCostOfTrip(_passanger));
             _menuItems.Add(new RemovePassanger_SystemMenuItem(_system, _passanger));
@@ -348,9 +351,8 @@ namespace SED_Coursework
         public override void Select()
         {
             _Passanger.AssignCruiseToPassanger(_Cruise);
-            _Passanger.fixCost();
-            _Passanger.CostOfTrip += _Cruise.CruiseCost;
             Console.WriteLine($"\n{_Cruise.ToString()} Assigned to {_Passanger.ToString()}\n");
+            
             
         }
         public override string MenuText()
@@ -368,7 +370,8 @@ namespace SED_Coursework
 
         public override void Select()
         {
-            Console.WriteLine($"£{_Passanger.CostOfTrip}\n");
+            _Passanger.CalculateCostOfTrip();
+            Console.WriteLine($"£{Math.Round(_Passanger.CostOfTrip, 2)}\n");
         }
         public override string MenuText()
         {
@@ -400,6 +403,7 @@ namespace SED_Coursework
         }
         public override void Select()
         {
+            Console.WriteLine($"\n{_Passanger.AssignedCruise.ToString} removed from {_Passanger.ToString()}\n");
             _Passanger.UnAssignCruiseFromPassanger();
         }
         public override string MenuText()
@@ -460,10 +464,11 @@ namespace SED_Coursework
 
         public override void Select()
         {
-            string newTripName = "Sample Name";
+            string newTripName = "Sample Trip Name";
             Console.WriteLine("Enter Trip Name");
             newTripName = Console.ReadLine();
-            Trip newTrip = new Trip(newTripName);
+            decimal newTripCost = Math.Round(ConsoleHelpers.GetDecimalInRange(0, 10000000000, "Enter Trip cost"),2);
+            Trip newTrip = new Trip(newTripName, newTripCost);
             _system.AddTrip(newTrip);
         }
         public override string MenuText()

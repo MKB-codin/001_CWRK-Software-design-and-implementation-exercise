@@ -4,7 +4,7 @@ namespace SED_Coursework
 {
     public static class ConsoleHelpers
     {
-        public static decimal GetIntegerInRange(decimal pMin, decimal pMax, string pMessage)
+        public static decimal GetDecimalInRange(decimal pMin, decimal pMax, string pMessage)
         {
             if (pMin > pMax)
             {
@@ -54,7 +54,7 @@ namespace SED_Coursework
             {
                 CreateMenu();
                 string output = $"{MenuText()}{Environment.NewLine}";
-                int selection = (int)(ConsoleHelpers.GetIntegerInRange(1, _menuItems.Count, this.ToString()) - 1);
+                int selection = (int)(ConsoleHelpers.GetDecimalInRange(1, _menuItems.Count, this.ToString()) - 1);
                 _menuItems[selection].Select();
             } while (IsActive);
         }

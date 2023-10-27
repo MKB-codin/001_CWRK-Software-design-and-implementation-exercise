@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -110,12 +111,12 @@ namespace SED_Coursework
         public string CruiseName { get; set; }
         public int CruiseID { get; private set; }
         private static int NextCruiseID { get; set; } = 1;
-        public double CruiseCost { get; private set; } = 0;
+        public decimal CruiseCost { get; private set; } = 0;
 
         List<Passanger> CruisePassangers;
         List<Port> CruisePorts;
                 
-        public Cruise(string pCruiseName, double pCruiseCost)
+        public Cruise(string pCruiseName, decimal pCruiseCost)
         {
             CruiseName = pCruiseName;
             CruiseCost = pCruiseCost;
@@ -184,7 +185,8 @@ namespace SED_Coursework
         public int Passport { get; set; }
         public Cruise AssignedCruise { get; private set; }
         List<Trip> AssignedTrips = new List<Trip>();
-        public double CostOfTrip { get; set; } = 0;
+        List<Trip> TripsThatDontComeFree = new List<Trip>();
+        public decimal CostOfTrip { get; set; } = 0;
         
         public Passanger(string fname, string sname, int passport)
         {
@@ -196,7 +198,7 @@ namespace SED_Coursework
 
         public bool IsCruiseAssignedToPassanger()
         {
-            if (this.AssignedCruise == null)
+            if (this.AssignedCruise != null)
             {
                 return true;
             }
@@ -204,19 +206,21 @@ namespace SED_Coursework
         }
         public void AssignCruiseToPassanger(Cruise pCruise)
         {
-            this.AssignedCruise = pCruise;
+            AssignedCruise = pCruise;
             Console.WriteLine($"{pCruise.ToString()} was assinged to {this.ToString()}");
         }
         public void UnAssignCruiseFromPassanger()
         {
-            this.CostOfTrip -= this.AssignedCruise.CruiseCost;
-            this.fixCost();
             this.AssignedCruise = null;
         }
         public void AddToAssignedTrips(Trip pTrip)
         {
             this.AssignedTrips.Add(pTrip);
             Console.WriteLine($"{pTrip.ToString()} was assigned to {this.ToString()}");
+            if (AssignedTrips.Count >= 2 )
+            {
+                TripsThatDontComeFree.Add(pTrip);
+            }
             //Add way to remove duplicates and implement a way so they can only have valid trips ie trips that are on the ports they are going to
             // make them pay extra for going on more trips than they are allowed to.
         }
@@ -231,6 +235,20 @@ namespace SED_Coursework
             {
                 Console.WriteLine($"{pTrip.ToString()} was not found");
             }
+        }
+        public void CalculateCostOfTrip()
+        {
+            decimal cost = 0;
+            try { cost += this.AssignedCruise.CruiseCost; } catch (NullReferenceException e) { cost += 0; }
+            try
+            {
+                foreach (Trip trip in this.TripsThatDontComeFree)
+                {
+                    cost += trip.TripCost;
+                }
+            }
+            catch (NullReferenceException e) { cost += 0; }
+            this.CostOfTrip = cost;
         }
         public void fixCost()
         {
@@ -289,25 +307,29 @@ namespace SED_Coursework
         public string TripName { get; set; }
         public int TripID { get; private set; }
         private int NextTripID { get; set; } = 1;
+        public decimal TripCost { get; private set; } = 0;
         public List<Passanger> TripPassangers;
 
-        public Trip(string ptripName, int ptripID,List<Passanger> pPassangers)
+        public Trip(string ptripName, int ptripID,List<Passanger> pPassangers, decimal pTripCost)
         {
             TripName = ptripName;
             TripID = ptripID;
+            TripCost = pTripCost;
             if(ptripID == NextTripID) { NextTripID++; } 
             TripPassangers = pPassangers;
         }
-        public Trip(string pTripName, List<Passanger> pPassangers)
+        public Trip(string pTripName, List<Passanger> pPassangers, decimal pTripCost)
         {
             TripName = pTripName;
             TripPassangers = pPassangers;
+            TripCost = pTripCost;
             TripID = NextTripID;
             NextTripID++;
         }
-        public Trip(string pTripName)
+        public Trip(string pTripName, decimal pTripCost)
         {
             TripName = pTripName;
+            TripCost = pTripCost;
             TripPassangers = new List<Passanger>();
             TripID = NextTripID;
             NextTripID++;
