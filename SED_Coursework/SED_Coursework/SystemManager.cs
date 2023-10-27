@@ -110,13 +110,15 @@ namespace SED_Coursework
         public string CruiseName { get; set; }
         public int CruiseID { get; private set; }
         private static int NextCruiseID { get; set; } = 1;
+        public double CruiseCost { get; private set; } = 0;
 
         List<Passanger> CruisePassangers;
         List<Port> CruisePorts;
                 
-        public Cruise(string pCruiseName)
+        public Cruise(string pCruiseName, double pCruiseCost)
         {
             CruiseName = pCruiseName;
+            CruiseCost = pCruiseCost;
             CruiseID = NextCruiseID;
             NextCruiseID++;
             CruisePassangers = new List<Passanger>();
@@ -182,6 +184,7 @@ namespace SED_Coursework
         public int Passport { get; set; }
         public int AssignedCruiseID { get; private set; } = -1;
         List<Trip> AssignedTrips = new List<Trip>();
+        public double CostOfTrip { get; set; } = 0;
         public Passanger(string fname, string sname, int passport)
         {
             FName = fname;
