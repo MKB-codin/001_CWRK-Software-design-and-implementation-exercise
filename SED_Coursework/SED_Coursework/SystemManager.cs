@@ -32,7 +32,9 @@ namespace SED_Coursework
         public void AddCruise(Cruise pCruise)
         {
             Cruises.Add(pCruise);
-            Console.WriteLine($"{pCruise.CruiseName} added to system\n");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"\n{pCruise.CruiseName} added to system\n");
+            Console.ForegroundColor = ConsoleColor.White;
             // NEEDS CHECK TO PREVENT DUPLICATES
         }
         public void RemoveCruise(Cruise pCruise)
@@ -40,18 +42,24 @@ namespace SED_Coursework
             if (Cruises.Contains(pCruise))
             {
                 Cruises.Remove(pCruise);
-                Console.WriteLine($"{pCruise.CruiseName} removed from system\n");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"\n{pCruise.CruiseName} removed from system\n");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             else
             {
-                Console.WriteLine($"{pCruise.CruiseName} was not found\n");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"\n{pCruise.CruiseName} was not found\n");
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
         public void AddPort(Port pPort)
         {
             AvailablePorts.Add(pPort);
-            Console.WriteLine($"{pPort.PortName} added to system\n");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"\n{pPort.PortName} added to system\n");
+            Console.ForegroundColor = ConsoleColor.White;
             // NEEDS CHECK TO PREVENT DUPLICATES
         }
         public void RemovePort(Port pPort)
@@ -59,18 +67,24 @@ namespace SED_Coursework
             if (AvailablePorts.Contains(pPort))
             {
                 AvailablePorts.Remove(pPort);
-                Console.WriteLine($"{pPort.PortName} removed from system\n");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"\n{pPort.PortName} removed from system\n");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             else
             {
-                Console.WriteLine($"{pPort.PortName} was not found\n");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"\n{pPort.PortName} was not found\n");
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
         public void AddPassanger(Passanger pPassanger)
         {
             Passangers.Add(pPassanger);
-            Console.WriteLine($"{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) added to system\n");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"\n{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) added to system\n");
+            Console.ForegroundColor = ConsoleColor.White;
             // NEEDS CHECK TO PREVENT DUPLICATES
         }
         public void RemovePassanger(Passanger pPassanger)
@@ -78,11 +92,15 @@ namespace SED_Coursework
             if (Passangers.Contains(pPassanger))
             {
                 Passangers.Remove(pPassanger);
-                Console.WriteLine($"{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) removed from system\n");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"\n{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) removed from system\n");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             else
             {
-                Console.WriteLine($"{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) was not found\n");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"\n{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) was not found\n");
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
@@ -137,7 +155,9 @@ namespace SED_Coursework
         public void AddPort(Port pPort)
         {
             CruisePorts.Add(pPort);
-            Console.WriteLine($"{pPort.PortName} Added to {this.CruiseName}\n");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"\n{pPort.PortName} Added to {this.CruiseName}\n");
+            Console.ForegroundColor = ConsoleColor.White;
             // NEEDS CHECK TO PREVENT DUPLICATES
         }
         public void RemovePort(Port pPort)
@@ -145,18 +165,24 @@ namespace SED_Coursework
             if (CruisePorts.Contains(pPort))
             {
                 CruisePorts.Remove(pPort);
-                Console.WriteLine($"{pPort.PortName} Removed from {this.CruiseName}\n");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"\n{pPort.PortName} Removed from {this.CruiseName}\n");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             else
             {
-                Console.WriteLine($"{pPort.PortName} was not found\n");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"\n{pPort.PortName} was not found\n");
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
         public void AddPassanger(Passanger pPassanger)
         {
             CruisePassangers.Add(pPassanger);
-            Console.WriteLine($"{pPassanger.FName} Added to {this.CruiseName}\n");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"\n{pPassanger.FName} Added to {this.CruiseName}\n");
+            Console.ForegroundColor = ConsoleColor.White;
             // NEEDS CHECK TO PREVENT DUPLICATES
         }
         public void RemovePassanger(Passanger pPassanger)
@@ -164,11 +190,15 @@ namespace SED_Coursework
             if (CruisePassangers.Contains(pPassanger))
             {
                 CruisePassangers.Remove(pPassanger);
-                Console.WriteLine($"{pPassanger.FName} Removed from {this.CruiseName}\n");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"\n{pPassanger.FName} Removed from {this.CruiseName}\n");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             else
             {
-                Console.WriteLine($"{pPassanger.FName} was not found\n");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"\n{pPassanger.FName} was not found\n");
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
@@ -208,7 +238,10 @@ namespace SED_Coursework
         {
             AssignedCruise = pCruise;
             pCruise.AddPassanger(this);
-            Console.WriteLine($"{pCruise.ToString()} was assinged to {this.ToString()}");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"\n{pCruise.ToString()} was assinged to {this.ToString()}");
+            Console.ForegroundColor = ConsoleColor.White;
+
         }
         public void UnAssignCruiseFromPassanger()
         {
@@ -217,7 +250,10 @@ namespace SED_Coursework
         public void AddToAssignedTrips(Trip pTrip)
         {
             this.AssignedTrips.Add(pTrip);
-            Console.WriteLine($"{pTrip.ToString()} was assigned to {this.ToString()}");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"\n{pTrip.ToString()} was assigned to {this.ToString()}");
+            Console.ForegroundColor = ConsoleColor.White;
+
             if (AssignedTrips.Count >= 2 )
             {
                 TripsThatDontComeFree.Add(pTrip);
@@ -229,11 +265,15 @@ namespace SED_Coursework
             if (this.AssignedTrips.Contains(pTrip))
             {
                 this.AssignedTrips.Remove(pTrip);
-                Console.WriteLine($"{pTrip.ToString()} was removed from {this.ToString()}");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"\n {pTrip.ToString()} was removed from {this.ToString()}");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             else
             {
-                Console.WriteLine($"{pTrip.ToString()} was not found");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"\n{pTrip.ToString()} was not found");
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
         public void CalculatePassangerTotalCost()
@@ -268,7 +308,7 @@ namespace SED_Coursework
         public int PortID { get; private set; }
         private static int NextPortID { get; set; } = 1;
 
-        public List<Trip> PortTrips;
+        public List<Trip> PortTrips { get; private set; }
 
         public Port(string pPortName)
         {
@@ -285,8 +325,19 @@ namespace SED_Coursework
 
         public void AddTrip(Trip pTrip)
         {
-            PortTrips.Add(pTrip);
-            Console.WriteLine($"{pTrip.TripName} Added to {this.PortName}\n");
+            if (PortTrips.Contains(pTrip))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"\n{pTrip.TripName} Already exists in {this.PortName}\n");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            else
+            {
+                PortTrips.Add(pTrip);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"{pTrip.TripName} Added to {this.PortName}\n");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
             // NEEDS CHECK TO PREVENT DUPLICATES
         }
         public void RemoveTrip(Trip pTrip)
@@ -294,11 +345,15 @@ namespace SED_Coursework
             if (PortTrips.Contains(pTrip))
             {
                 PortTrips.Remove(pTrip);
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"{pTrip.TripName} Removed from  {this.PortName}\n");
+                Console.ForegroundColor = ConsoleColor.Green;
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.Yellow ;
                 Console.WriteLine($"{pTrip.TripName} was not found\n");
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
     }
@@ -306,7 +361,7 @@ namespace SED_Coursework
     {
         public string TripName { get; set; }
         public int TripID { get; private set; }
-        private int NextTripID { get; set; } = 1;
+        private static int NextTripID { get; set; } = 1;
         public decimal TripCost { get; private set; } = 0;
         public List<Passanger> TripPassangers;
 
@@ -351,7 +406,9 @@ namespace SED_Coursework
         public void AddPassanger(Passanger pPassanger)
         {
             TripPassangers.Add(pPassanger);
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) added to {this.TripName}\n");
+            Console.ForegroundColor = ConsoleColor.White;
             // NEEDS CHECK TO PREVENT DUPLICATES
         }
         public void RemovePassanger(Passanger pPassanger)
@@ -359,11 +416,15 @@ namespace SED_Coursework
             if (TripPassangers.Contains(pPassanger))
             {
                 TripPassangers.Remove(pPassanger);
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) removed from {this.TripName}\n");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine($"{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) was not found\n");
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
     }

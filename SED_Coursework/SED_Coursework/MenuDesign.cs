@@ -134,7 +134,7 @@ namespace SED_Coursework
             _menuItems.Add(new AddPortMenuItem(_system));
             if (_system.AvailablePorts.Count > 0)
             {
-                _menuItems.Add(new ViewPortMenu(_system));
+                _menuItems.Add(new ViewPortsMenu(_system));
             }
             _menuItems.Add(new ExitMenuItem(this));
         }
@@ -143,6 +143,7 @@ namespace SED_Coursework
             return "Manage Ports";
         }
     }
+
     class AddPortMenuItem : MenuItem
     {
         AdminSystem _system;
@@ -164,10 +165,11 @@ namespace SED_Coursework
             return "Add Port";
         }
     }
-    class ViewPortMenu : ConsoleMenu
+
+    class ViewPortsMenu : ConsoleMenu
     {
         AdminSystem _system;
-        public ViewPortMenu(AdminSystem system)
+        public ViewPortsMenu(AdminSystem system)
         {
             _system = system;
         }
@@ -176,7 +178,7 @@ namespace SED_Coursework
             _menuItems.Clear();
             foreach(Port port in _system.AvailablePorts.OrderBy(o => o.PortID))
             { 
-                _menuItems.Add(new ViewPortMenuItem(port));
+                _menuItems.Add(new ViewPortMenu(_system,port));
             }
             _menuItems.Add(new ExitMenuItem(this));
         }
@@ -185,20 +187,131 @@ namespace SED_Coursework
             return "View Port(s)";
         }
     }
-    class ViewPortMenuItem : MenuItem
+    class ViewPortMenu : ConsoleMenu
     {
+        AdminSystem _system;
         Port _port;
-        public ViewPortMenuItem(Port port)
+        public ViewPortMenu(AdminSystem system,Port port)
         {
+            _system = system;
             _port = port;
         }
-        public override void Select()
+        public override void CreateMenu()
         {
-            throw new NotImplementedException();
+            _menuItems.Clear();
+            _menuItems.Add(new AddTripsToPortMenu(_port, _system.AvailableTrips));
+            _menuItems.Add(new RemoveTripsFromPortMenu(_port));
+            _menuItems.Add(new RemovePortFromSystemMenuItem(_system, _port));
+            _menuItems.Add(new ExitMenuItem(this));
         }
         public override string MenuText()
         {
             return _port.ToString();
+        }
+    }
+
+    class AddTripsToPortMenu : ConsoleMenu
+    {
+        Port _port;
+        List<Trip> _trips;
+        public AddTripsToPortMenu(Port port, List<Trip> trips)
+        {
+            _port = port;
+            _trips = trips;
+        }
+
+        public override void CreateMenu()
+        {
+            _menuItems.Clear();
+            foreach (Trip trip in _trips)
+            {
+                _menuItems.Add(new AddTripToPortMenuItem(trip, _port));
+            }
+            _menuItems.Add(new ExitMenuItem(this));
+        }
+        public override string MenuText()
+        {
+            return "Add Trip to Port";
+        }
+    }
+    class AddTripToPortMenuItem : MenuItem
+    { 
+        Port _port;
+        Trip _trip;
+        public AddTripToPortMenuItem(Trip trip, Port port)
+        {
+            _trip = trip;
+            _port = port;
+        }
+        public override void Select()
+        {
+            _port.AddTrip(_trip);
+        }
+        public override string MenuText()
+        {
+            return _trip.ToString();
+        }
+    }
+    class RemoveTripsFromPortMenu : ConsoleMenu
+    {
+        Port _port;
+        public RemoveTripsFromPortMenu(Port port)
+        {
+            _port = port;
+        }
+
+        public override void CreateMenu()
+        {
+            _menuItems.Clear();
+            foreach(Trip trip in _port.PortTrips.OrderBy(o=>o.TripID))
+            {
+                _menuItems.Add(new RemoveTripFromPortMenuItem(_port, trip));
+            }
+            _menuItems.Add(new ExitMenuItem(this));
+        }
+        public override string MenuText()
+        {
+            return "Remove Trip(s) from Port";
+        }
+
+    }
+    class RemoveTripFromPortMenuItem : MenuItem
+    {
+        Port _port;
+        Trip _trip;
+        public RemoveTripFromPortMenuItem(Port port, Trip trip)
+        {
+            _port = port;
+            _trip = trip;
+        }
+
+        public override void Select()
+        {
+            _port.RemoveTrip(_trip);
+        }
+        public override string MenuText()
+        {
+            return _trip.ToString();
+        }
+    }
+
+    class RemovePortFromSystemMenuItem : MenuItem
+    {
+        AdminSystem _system;
+        Port _port;
+        public RemovePortFromSystemMenuItem(AdminSystem system, Port port)
+        {
+            _system = system;
+            _port = port;
+        }
+
+        public override void Select()
+        {
+            _system.RemovePort(_port);
+        }
+        public override string MenuText()
+        {
+            return "Remove Port From System";
         }
     }
     #endregion
@@ -547,7 +660,6 @@ namespace SED_Coursework
         public override void Select()
         {
             _system.RemoveTrip(_trip);
-            Console.WriteLine($"\nTrip has been removed from system\n");
         }
         public override string MenuText()
         {
