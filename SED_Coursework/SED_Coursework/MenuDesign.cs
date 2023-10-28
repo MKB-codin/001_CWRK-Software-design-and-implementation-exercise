@@ -158,7 +158,7 @@ namespace SED_Coursework
             Console.WriteLine("What is the name of the port?");
             newPortName = Console.ReadLine();
             Port newPort = new Port(newPortName);
-            _system.AvailablePorts.Add(newPort);
+            _system.AddPort(newPort);
         }
         public override string MenuText()
         {
@@ -200,7 +200,10 @@ namespace SED_Coursework
         {
             _menuItems.Clear();
             _menuItems.Add(new AddTripsToPortMenu(_port, _system.AvailableTrips));
-            _menuItems.Add(new RemoveTripsFromPortMenu(_port));
+            if (_port.PortTrips.Count > 0)
+            {
+                _menuItems.Add(new RemoveTripsFromPortMenu(_port));
+            }
             _menuItems.Add(new RemovePortFromSystemMenuItem(_system, _port));
             _menuItems.Add(new ExitMenuItem(this));
         }
@@ -339,6 +342,7 @@ namespace SED_Coursework
             return "Manage Passangers";
         }
     }
+
     class AddPassangerMenu : MenuItem
     {
         AdminSystem _system;
@@ -373,7 +377,6 @@ namespace SED_Coursework
             _system.AddPassanger(newPassanger);
         }
     }
-
 
     class ViewPassangersMenu : ConsoleMenu
     {
@@ -427,6 +430,7 @@ namespace SED_Coursework
             return _passanger.ToString();
         }
     }
+
     class AssignCruiseToPassangerMenu : ConsoleMenu
     {
         List<Cruise> _Cruises;
@@ -464,15 +468,13 @@ namespace SED_Coursework
         public override void Select()
         {
             _Passanger.AssignCruiseToPassanger(_Cruise);
-            Console.WriteLine($"\n{_Cruise.ToString()} Assigned to {_Passanger.ToString()}\n");
-            
-            
         }
         public override string MenuText()
         {
             return _Cruise.ToString();
         }
     }
+
     class ViewPassangerPassangerTotalCost : MenuItem
     {
         Passanger _Passanger;
@@ -484,7 +486,9 @@ namespace SED_Coursework
         public override void Select()
         {
             _Passanger.CalculatePassangerTotalCost();
-            Console.WriteLine($"£{Math.Round(_Passanger.PassangerTotalCost, 2)}\n");
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine($"£{_Passanger.PassangerTotalCost}\n");
+            Console.ForegroundColor = ConsoleColor.White;
         }
         public override string MenuText()
         {
@@ -500,13 +504,16 @@ namespace SED_Coursework
         }
         public override void Select()
         {
-            Console.WriteLine($"{_passanger.ToString()} Assigned to Cruise with ID: {_passanger.AssignedCruise.ToString()}\n");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine($"{_passanger.ToString()} Assigned to Cruise: {_passanger.AssignedCruise.ToString()}\n");
+            Console.ForegroundColor = ConsoleColor.White;
         }
         public override string MenuText()
         {
             return "View Cruise Assigned to Passanger";
         }
     }
+
     class UnAssignCruiseFromPassangerMenuItem : MenuItem
     {
         Passanger _Passanger;
@@ -516,7 +523,6 @@ namespace SED_Coursework
         }
         public override void Select()
         {
-            Console.WriteLine($"\n{_Passanger.AssignedCruise.ToString()} removed from {_Passanger.ToString()}\n");
             _Passanger.UnAssignCruiseFromPassanger();
         }
         public override string MenuText()
@@ -524,6 +530,7 @@ namespace SED_Coursework
             return "UnAssign Cruise from Passanger";
         }
     }
+
     class RemovePassanger_SystemMenuItem : MenuItem
     {
         AdminSystem _system;
@@ -641,7 +648,9 @@ namespace SED_Coursework
 
         public override void Select()
         {
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($"\n£{_trip.TripCost}\n");
+            Console.ForegroundColor = ConsoleColor.White;
         }
         public override string MenuText()
         {

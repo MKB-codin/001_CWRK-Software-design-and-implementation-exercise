@@ -263,6 +263,9 @@ namespace SED_Coursework
         }
         public void UnAssignCruiseFromPassanger()
         {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"\n{this.AssignedCruise.ToString()} removed from {this.ToString()}\n");
+            Console.ForegroundColor = ConsoleColor.White;
             this.AssignedCruise = null;
         }
         public void AddToAssignedTrips(Trip pTrip)
@@ -306,7 +309,7 @@ namespace SED_Coursework
                 }
             }
             catch (NullReferenceException e) { cost += 0; }
-            this.PassangerTotalCost = cost;
+            this.PassangerTotalCost = Math.Round(cost,2);
         }
         public void fixCost()
         {
@@ -353,7 +356,7 @@ namespace SED_Coursework
             {
                 PortTrips.Add(pTrip);
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"{pTrip.TripName} Added to {this.PortName}\n");
+                Console.WriteLine($"\n{pTrip.TripName} Added to {this.PortName}\n");
                 Console.ForegroundColor = ConsoleColor.White;
             }
             
@@ -364,13 +367,13 @@ namespace SED_Coursework
             {
                 PortTrips.Remove(pTrip);
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"{pTrip.TripName} Removed from  {this.PortName}\n");
-                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"\n{pTrip.TripName} Removed from  {this.PortName}\n");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Yellow ;
-                Console.WriteLine($"{pTrip.TripName} was not found\n");
+                Console.WriteLine($"\n{pTrip.TripName} was not found\n");
                 Console.ForegroundColor = ConsoleColor.White;
             }
         }
@@ -425,7 +428,7 @@ namespace SED_Coursework
         {
             TripPassangers.Add(pPassanger);
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) added to {this.TripName}\n");
+            Console.WriteLine($"\n{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) added to {this.TripName}\n");
             Console.ForegroundColor = ConsoleColor.White;
             // NEEDS CHECK TO PREVENT DUPLICATES  -- NOT NEEDED AS PASSANGER MAY WANT THE SAME TRIP TWICE IN CRUISE - ON DIFFERENT PORTS
         }
@@ -435,13 +438,13 @@ namespace SED_Coursework
             {
                 TripPassangers.Remove(pPassanger);
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) removed from {this.TripName}\n");
+                Console.WriteLine($"\n{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) removed from {this.TripName}\n");
                 Console.ForegroundColor = ConsoleColor.White;
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine($"{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) was not found\n");
+                Console.WriteLine($"\n{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) was not found\n");
                 Console.ForegroundColor = ConsoleColor.White;
             }
         }
