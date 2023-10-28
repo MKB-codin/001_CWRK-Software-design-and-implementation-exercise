@@ -154,11 +154,19 @@ namespace SED_Coursework
 
         public void AddPort(Port pPort)
         {
-            CruisePorts.Add(pPort);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"\n{pPort.PortName} Added to {this.CruiseName}\n");
-            Console.ForegroundColor = ConsoleColor.White;
-            // NEEDS CHECK TO PREVENT DUPLICATES
+            if (this.CruisePorts.Contains(pPort))
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"\n{this.ToString()} already has {pPort.ToString()}\n");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            else
+            {
+                CruisePorts.Add(pPort);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"\n{pPort.PortName} Added to {this.CruiseName}\n");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
         }
         public void RemovePort(Port pPort)
         {
@@ -179,10 +187,20 @@ namespace SED_Coursework
 
         public void AddPassanger(Passanger pPassanger)
         {
-            CruisePassangers.Add(pPassanger);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"\n{pPassanger.FName} Added to {this.CruiseName}\n");
-            Console.ForegroundColor = ConsoleColor.White;
+            if (this.CruisePassangers.Contains(pPassanger))
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"\n{this.ToString()} already has {pPassanger.ToString()}\n");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            else
+            {
+
+                CruisePassangers.Add(pPassanger);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"\n{pPassanger.FName} Added to {this.CruiseName}\n");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
             // NEEDS CHECK TO PREVENT DUPLICATES
         }
         public void RemovePassanger(Passanger pPassanger)
@@ -258,7 +276,7 @@ namespace SED_Coursework
             {
                 TripsThatDontComeFree.Add(pTrip);
             }
-            //Add way to remove duplicates and implement a way so they can only have valid trips ie trips that are on the ports they are going to
+            
         }
         public void RemoveAssignedTrip(Trip pTrip)
         {
@@ -327,7 +345,7 @@ namespace SED_Coursework
         {
             if (PortTrips.Contains(pTrip))
             {
-                Console.ForegroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine($"\n{pTrip.TripName} Already exists in {this.PortName}\n");
                 Console.ForegroundColor = ConsoleColor.White;
             }
@@ -338,7 +356,7 @@ namespace SED_Coursework
                 Console.WriteLine($"{pTrip.TripName} Added to {this.PortName}\n");
                 Console.ForegroundColor = ConsoleColor.White;
             }
-            // NEEDS CHECK TO PREVENT DUPLICATES
+            
         }
         public void RemoveTrip(Trip pTrip)
         {
@@ -409,7 +427,7 @@ namespace SED_Coursework
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) added to {this.TripName}\n");
             Console.ForegroundColor = ConsoleColor.White;
-            // NEEDS CHECK TO PREVENT DUPLICATES
+            // NEEDS CHECK TO PREVENT DUPLICATES  -- NOT NEEDED AS PASSANGER MAY WANT THE SAME TRIP TWICE IN CRUISE - ON DIFFERENT PORTS
         }
         public void RemovePassanger(Passanger pPassanger)
         {
