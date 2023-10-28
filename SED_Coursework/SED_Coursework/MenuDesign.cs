@@ -403,7 +403,7 @@ namespace SED_Coursework
         }
         public override void Select()
         {
-            Console.WriteLine($"\n{_Passanger.AssignedCruise.ToString} removed from {_Passanger.ToString()}\n");
+            Console.WriteLine($"\n{_Passanger.AssignedCruise.ToString()} removed from {_Passanger.ToString()}\n");
             _Passanger.UnAssignCruiseFromPassanger();
         }
         public override string MenuText()

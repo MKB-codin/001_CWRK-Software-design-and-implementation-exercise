@@ -222,7 +222,6 @@ namespace SED_Coursework
                 TripsThatDontComeFree.Add(pTrip);
             }
             //Add way to remove duplicates and implement a way so they can only have valid trips ie trips that are on the ports they are going to
-            // make them pay extra for going on more trips than they are allowed to.
         }
         public void RemoveAssignedTrip(Trip pTrip)
         {
