@@ -488,7 +488,7 @@ namespace SED_Coursework
             _menuItems.Clear();
             foreach (Trip trip in _system.AvailableTrips.OrderBy(o => o.TripID))
             {
-                _menuItems.Add(new ViewTripMenuItem(trip));
+                _menuItems.Add(new ViewTripMenu(trip,_system));
             }
             _menuItems.Add(new ExitMenuItem(this));
         }
@@ -497,20 +497,61 @@ namespace SED_Coursework
             return "View Trip(s)";
         }
     }
-    class ViewTripMenuItem : MenuItem
+    class ViewTripMenu : ConsoleMenu
     {
         Trip _trip;
-        public ViewTripMenuItem(Trip trip)
+        AdminSystem _system;
+        public ViewTripMenu(Trip trip, AdminSystem system)
         {
             _trip = trip;
+            _system = system;
         }
-        public override void Select()
+        public override void CreateMenu()
         {
-            throw new NotImplementedException();
+            _menuItems.Clear();
+            _menuItems.Add(new ViewTripCostMenuItem(_trip));
+            _menuItems.Add(new RemoveTripFromSystemMenuItem(_system,_trip));
+            _menuItems.Add(new ExitMenuItem(this)); 
         }
         public override string MenuText()
         {
             return _trip.ToString();
+        }
+    }
+    class ViewTripCostMenuItem : MenuItem
+    {
+        Trip _trip;
+        public ViewTripCostMenuItem(Trip trip)
+        {
+            _trip = trip;
+        }
+
+        public override void Select()
+        {
+            Console.WriteLine($"\n£{_trip.TripCost}\n");
+        }
+        public override string MenuText()
+        {
+            return "View Cost of Trip";
+        }
+    }
+    class RemoveTripFromSystemMenuItem : MenuItem
+    {
+        AdminSystem _system;
+        Trip _trip;
+        public RemoveTripFromSystemMenuItem(AdminSystem system, Trip trip)
+        {
+            _system = system;
+            _trip = trip;
+        }
+        public override void Select()
+        {
+            _system.RemoveTrip(_trip);
+            Console.WriteLine($"\nTrip has been removed from system\n");
+        }
+        public override string MenuText()
+        {
+            return "Remove Trip from System";
         }
     }
     #endregion

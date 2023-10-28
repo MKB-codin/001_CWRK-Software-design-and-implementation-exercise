@@ -207,6 +207,7 @@ namespace SED_Coursework
         public void AssignCruiseToPassanger(Cruise pCruise)
         {
             AssignedCruise = pCruise;
+            pCruise.AddPassanger(this);
             Console.WriteLine($"{pCruise.ToString()} was assinged to {this.ToString()}");
         }
         public void UnAssignCruiseFromPassanger()
