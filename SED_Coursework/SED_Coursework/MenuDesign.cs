@@ -113,6 +113,8 @@ namespace SED_Coursework
         public override void CreateMenu()
         {
             _menuItems.Clear();
+            _menuItems.Add(new PassangersCruiseMenu(_system, _Cruise));
+            _menuItems.Add(new PortsCruiseMenu(_system, _Cruise));
             _menuItems.Add(new RemoveCruiseFromSystemMenuItem(_system,_Cruise));
             _menuItems.Add(new ExitMenuItem(this));
         }
@@ -121,6 +123,333 @@ namespace SED_Coursework
             return _Cruise.ToString();
         }
     }
+
+
+    class PassangersCruiseMenu : ConsoleMenu
+    {
+        AdminSystem _system;
+        Cruise _cruise;
+        public PassangersCruiseMenu(AdminSystem system, Cruise cruise)
+        {
+            _system = system;
+            _cruise = cruise;
+        }
+        public override void CreateMenu()
+        {
+            _menuItems.Clear();
+            _menuItems.Add(new AddPassangerToCruiseMenu(_system.Passangers, _cruise));
+            if(_cruise.CruisePassangers != null)
+            {
+                _menuItems.Add(new ViewPassangersInCruiseMenu(_cruise,_system.Passangers));
+            }
+            _menuItems.Add(new ExitMenuItem(this));
+        }
+        public override string MenuText()
+        {
+            return "Passangers";
+        }
+    }
+    class AddPassangerToCruiseMenu : ConsoleMenu
+    {
+        List<Passanger> _passangers;
+        Cruise _cruise;
+        public AddPassangerToCruiseMenu(List<Passanger> passangers, Cruise cruise)
+        {
+            _passangers = passangers;
+            _cruise = cruise;
+        }
+
+        public override void CreateMenu()
+        {
+            _menuItems.Clear();
+            foreach(Passanger passanger in _passangers.OrderBy(o => o.Passport))
+            {
+                _menuItems.Add(new AddPassangerToCruiseMenuItem(_cruise, passanger));
+            }
+            _menuItems.Add(new ExitMenuItem(this));
+        }
+        public override string MenuText()
+        {
+            return "Add Passanger to Cruise";
+        }
+    }
+    class AddPassangerToCruiseMenuItem : MenuItem
+    {
+        Cruise _cruise;
+        Passanger _passanger;
+        public AddPassangerToCruiseMenuItem(Cruise cruise,  Passanger passanger)
+        {
+            _cruise = cruise;
+            _passanger = passanger;
+        }
+        public override void Select()
+        {
+            _cruise.AddPassanger(_passanger);
+        }
+        public override string MenuText()
+        {
+            return _passanger.ToString();
+        }
+    }
+
+    class ViewPassangersInCruiseMenu : ConsoleMenu
+    {
+        Cruise _cruise;
+        List<Passanger> _passangers;
+        public ViewPassangersInCruiseMenu(Cruise cruise, List<Passanger> passangers)
+        {
+            _cruise = cruise;
+            _passangers = passangers;
+        }
+
+        public override void CreateMenu()
+        {
+            _menuItems.Clear();
+            foreach( Passanger passanger in _passangers.OrderBy(o => o.Passport))
+            {
+                _menuItems.Add(new ViewPassangerInCruiseMenu(_cruise,passanger));
+            }
+            _menuItems.Add(new ExitMenuItem(this));
+        }
+        public override string MenuText()
+        {
+            return "View Passanger in Cruise";
+        }
+    }
+    class ViewPassangerInCruiseMenu : ConsoleMenu
+    {
+        Cruise _cruise;
+        Passanger _passanger;
+        public ViewPassangerInCruiseMenu(Cruise crusie, Passanger passanger)
+        {
+            _cruise = crusie;
+            _passanger = passanger;
+        }
+
+        public override void CreateMenu()
+        {
+            _menuItems.Clear();
+            _menuItems.Add(new AddTripToPassangerMenu(_cruise, _passanger));
+            _menuItems.Add(new ExitMenuItem(this));
+        }
+        public override string MenuText()
+        {
+            return _passanger.ToString();
+        }
+    }
+    class AddTripToPassangerMenu : ConsoleMenu
+    {
+        Cruise _cruise;
+        Passanger _passanger;
+        public AddTripToPassangerMenu(Cruise cruise, Passanger passanger)
+        {
+            _cruise = cruise;
+            _passanger = passanger;
+        }
+
+        public override void CreateMenu()
+        {
+            _menuItems.Clear();
+            foreach (Trip trip in _passanger.AssignedTrips.OrderBy(o => o.TripID))
+            {
+                _menuItems.Add(new AddTripToPassangerMenuItem(_passanger, trip));
+            }
+            _menuItems.Add(new ExitMenuItem(this));
+        }
+        public override string MenuText()
+        {
+            return "Assign a trip to Passanger";
+        }
+    }
+    class AddTripToPassangerMenuItem : MenuItem
+    {
+        Passanger _passanger;
+        Trip _trip;
+
+        public AddTripToPassangerMenuItem(Passanger passanger, Trip trip)
+        {
+            _passanger = passanger;
+            _trip = trip;
+        }
+        public override void Select()
+        {
+            ; _passanger.AddToAssignedTrips(_trip);
+        }
+        public override string MenuText()
+        {
+            return _trip.ToString();
+        }
+    }
+
+    class RemoveTripFromPassangerMenu : ConsoleMenu
+    {
+        Passanger _passanger;
+        public RemoveTripFromPassangerMenu(Passanger passanger)
+        {
+            _passanger = passanger;
+        }
+
+        public override void CreateMenu()
+        {
+            _menuItems.Clear();
+            foreach(Trip trip in _passanger.AssignedTrips.OrderBy(o => o.TripID))
+            {
+                _menuItems.Add(new RemoveTripFromPassangerMenuItem(_passanger, trip));
+            }
+            _menuItems.Add(new ExitMenuItem(this));
+        }
+        public override string MenuText()
+        {
+            return "Remove a trip from this passanger";
+        }
+    }
+    class RemoveTripFromPassangerMenuItem : MenuItem
+    {
+        Passanger _passanger;
+        Trip _trip;
+
+        public RemoveTripFromPassangerMenuItem(Passanger passanger, Trip trip)
+        {
+            _passanger = passanger;
+            _trip = trip;
+        }
+        public override void Select()
+        {
+            _passanger.RemoveAssignedTrip(_trip);
+        }
+        public override string MenuText()
+        {
+            return _trip.ToString();
+        }
+    }
+
+    class RemovePassangerFromCruiseMenuItem : MenuItem
+    {
+        Cruise _cruise;
+        Passanger _passanger;
+        public RemovePassangerFromCruiseMenuItem(Cruise cruise, Passanger passanger)
+        {
+            _cruise = cruise;
+            _passanger = passanger;
+        }
+        public override void Select()
+        {
+            _cruise.RemovePassanger(_passanger);
+        }
+        public override string MenuText()
+        {
+            return _passanger.ToString();
+        }
+    }
+
+
+
+    class PortsCruiseMenu : ConsoleMenu
+    {
+        AdminSystem _system;
+        Cruise _cruise;
+        public PortsCruiseMenu(AdminSystem system, Cruise cruise)
+        {
+            _system = system;
+            _cruise = cruise;
+        }
+        public override void CreateMenu()
+        {
+            _menuItems.Clear();
+            _menuItems.Add(new AddPortToCruiseMenu(_system.AvailablePorts, _cruise));
+            if (_cruise.CruisePassangers != null)
+            {
+                _menuItems.Add(new RemovePortFromCruiseMenu(_cruise));
+            }
+            _menuItems.Add(new ExitMenuItem(this));
+        }
+        public override string MenuText()
+        {
+            return "Passangers";
+        }
+    }
+    class AddPortToCruiseMenu : ConsoleMenu
+    {
+        List<Port> _ports;
+        Cruise _cruise;
+        public AddPortToCruiseMenu(List<Port> ports, Cruise cruise)
+        {
+            _ports = ports;
+            _cruise = cruise;
+        }
+        public override void CreateMenu()
+        {
+            _menuItems.Clear();
+            foreach (Port port in _ports)
+            {
+                _menuItems.Add(new AddPortToCruiseMenuItem(_cruise, port));
+            }
+            _menuItems.Add(new ExitMenuItem(this));
+        }
+        public override string MenuText()
+        {
+            return "Port";
+        }
+    } //NOT DONE NEEDS IMPLEMENTING
+    class AddPortToCruiseMenuItem : MenuItem
+    {
+        Cruise _cruise;
+        Port _port;
+        public AddPortToCruiseMenuItem(Cruise cruise, Port port)
+        {
+            _cruise = cruise;
+            _port = port;
+        }
+        public override void Select()
+        {
+            _cruise.AddPort(_port);
+        }
+        public override string MenuText()
+        {
+            return _port.ToString();
+        }
+    } //NOT DONE NEEDS IMPLEMENTING
+    class RemovePortFromCruiseMenu : ConsoleMenu
+    {
+        Cruise _cruise;
+        public RemovePortFromCruiseMenu(Cruise cruise)
+        {
+            _cruise = cruise;
+        }
+        public override void CreateMenu()
+        {
+            _menuItems.Clear();
+            foreach (Port port in _cruise.CruisePorts.OrderBy(o=>o.PortID))
+            {
+                _menuItems.Add(new RemovePortFromCruiseMenuItem(_cruise, port));
+            }
+            _menuItems.Add(new ExitMenuItem(this));
+        }
+        public override string MenuText()
+        {
+            return "Port";
+        }
+    }
+    class RemovePortFromCruiseMenuItem : MenuItem
+    {
+        Cruise _cruise;
+        Port _port;
+        public RemovePortFromCruiseMenuItem(Cruise cruise , Port port)
+        {
+            _cruise = cruise;
+            _port = port;
+        }
+        public override void Select()
+        {
+            _cruise.RemovePort(_port);
+        }
+        public override string MenuText()
+        {
+            return _port.ToString();
+        }
+    }
+
+
     class RemoveCruiseFromSystemMenuItem : MenuItem
     {
         AdminSystem _system;

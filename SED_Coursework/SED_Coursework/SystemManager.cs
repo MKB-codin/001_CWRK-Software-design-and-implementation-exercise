@@ -31,11 +31,20 @@ namespace SED_Coursework
 
         public void AddCruise(Cruise pCruise)
         {
-            Cruises.Add(pCruise);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"\n{pCruise.CruiseName} added to system\n");
-            Console.ForegroundColor = ConsoleColor.White;
-            // NEEDS CHECK TO PREVENT DUPLICATES
+            if (Cruises.Contains(pCruise))
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"\n{pCruise.CruiseName} already exists in the system\n");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            else
+            {
+                Cruises.Add(pCruise);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"\n{pCruise.CruiseName} added to system\n");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            // NEEDS CHECK TO PREVENT DUPLICATES ✔️
         }
         public void RemoveCruise(Cruise pCruise)
         {
@@ -56,11 +65,20 @@ namespace SED_Coursework
 
         public void AddPort(Port pPort)
         {
-            AvailablePorts.Add(pPort);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"\n{pPort.PortName} added to system\n");
-            Console.ForegroundColor = ConsoleColor.White;
-            // NEEDS CHECK TO PREVENT DUPLICATES
+            if (AvailablePorts.Contains(pPort))
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"\n{pPort.PortName} already exists in the system\n");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            else
+            {
+                AvailablePorts.Add(pPort);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"\n{pPort.PortName} added to system\n");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            // NEEDS CHECK TO PREVENT DUPLICATES ✔️
         }
         public void RemovePort(Port pPort)
         {
@@ -81,11 +99,17 @@ namespace SED_Coursework
 
         public void AddPassanger(Passanger pPassanger)
         {
+            if (Passangers.Contains(pPassanger))
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"\n{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) already exists in the system\n");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
             Passangers.Add(pPassanger);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"\n{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) added to system\n");
             Console.ForegroundColor = ConsoleColor.White;
-            // NEEDS CHECK TO PREVENT DUPLICATES
+            // NEEDS CHECK TO PREVENT DUPLICATES ✔️
         }
         public void RemovePassanger(Passanger pPassanger)
         {
@@ -106,9 +130,17 @@ namespace SED_Coursework
 
         public void AddTrip(Trip pTrip)
         {
+            if (AvailableTrips.Contains(pTrip))
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"\n{pTrip.TripName} already exists in the system\n");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
             AvailableTrips.Add(pTrip);
-            Console.WriteLine($"{pTrip.TripName} added to system\n");
-            // NEEDS CHECK TO PREVENT DUPLICATES
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"\n{pTrip.TripName} added to system\n");
+            Console.ForegroundColor = ConsoleColor.White;
+            // NEEDS CHECK TO PREVENT DUPLICATES ✔️
         }
         public void RemoveTrip(Trip pTrip)
         {
@@ -131,9 +163,9 @@ namespace SED_Coursework
         private static int NextCruiseID { get; set; } = 1;
         public decimal CruiseCost { get; private set; } = 0;
 
-        List<Passanger> CruisePassangers;
-        List<Port> CruisePorts;
-                
+        public List<Passanger> CruisePassangers { get; private set; }
+        public List<Port> CruisePorts{ get; private set; }
+
         public Cruise(string pCruiseName, decimal pCruiseCost)
         {
             CruiseName = pCruiseName;
@@ -225,15 +257,14 @@ namespace SED_Coursework
             return $"{this.CruiseName} ({this.CruiseID})";
         }
     }
-
     class Passanger
     {
         public string FName { get; set; }
         public string SName { get; set; }
         public int Passport { get; set; }
         public Cruise AssignedCruise { get; private set; }
-        List<Trip> AssignedTrips = new List<Trip>();
-        List<Trip> TripsThatDontComeFree = new List<Trip>();
+        public List<Trip> AssignedTrips { get; private set; }
+        public List<Trip> TripsThatDontComeFree{ get; private set;}
         public decimal PassangerTotalCost { get; set; } = 0;
         
         public Passanger(string fname, string sname, int passport)
@@ -242,6 +273,7 @@ namespace SED_Coursework
             SName = sname;
             Passport = passport;
             AssignedTrips = new List<Trip>();
+            TripsThatDontComeFree = new List<Trip>();
         }
 
         public bool IsCruiseAssignedToPassanger()
@@ -275,11 +307,50 @@ namespace SED_Coursework
             Console.WriteLine($"\n{pTrip.ToString()} was assigned to {this.ToString()}");
             Console.ForegroundColor = ConsoleColor.White;
 
-            if (AssignedTrips.Count >= 2 )
+            if (AssignedTrips.Count <= 2 )
             {
-                TripsThatDontComeFree.Add(pTrip);
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("This passanger has already reached their two free trips");
+                Console.WriteLine($"Adding another trip will incur a cost of £{pTrip.TripCost}");
+                while (true)
+                {
+                    try
+                    {
+                        Console.WriteLine("Do you want to continue y or n?");
+                        string response = Console.ReadLine().ToLower();
+                        if (response == "y")
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkGreen;
+                            Console.WriteLine($"Trip added along with charge of £{pTrip.TripCost}");
+                            this.AssignedTrips.Add(pTrip);
+                            this.TripsThatDontComeFree.Add(pTrip);
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
+                        else if (response == "n")
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($"Cancelled");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            break;
+                        }
+                    }
+                    catch { 
+                        Console.ForegroundColor = ConsoleColor.DarkYellow; 
+                        Console.WriteLine("Answer with either 'y' or 'n' ");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                }                
+                Console.ForegroundColor = ConsoleColor.White;
+
             }
-            
+            else
+            {
+                this.AssignedTrips.Add(pTrip);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"\n{pTrip.ToString()} was assigned to {this.ToString()}");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+
         }
         public void RemoveAssignedTrip(Trip pTrip)
         {
