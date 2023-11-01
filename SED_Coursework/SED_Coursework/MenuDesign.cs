@@ -138,9 +138,9 @@ namespace SED_Coursework
         {
             _menuItems.Clear();
             _menuItems.Add(new AddPassangerToCruiseMenu(_system.Passangers, _cruise));
-            if(_cruise.CruisePassangers != null)
+            if(_cruise.CruisePassangers.Count > 0)
             {
-                _menuItems.Add(new ViewPassangersInCruiseMenu(_cruise,_system.Passangers));
+                _menuItems.Add(new ViewPassangersInCruiseMenu(_cruise));
             }
             _menuItems.Add(new ExitMenuItem(this));
         }
@@ -191,21 +191,21 @@ namespace SED_Coursework
             return _passanger.ToString();
         }
     }
-
+ 
     class ViewPassangersInCruiseMenu : ConsoleMenu
     {
         Cruise _cruise;
-        List<Passanger> _passangers;
-        public ViewPassangersInCruiseMenu(Cruise cruise, List<Passanger> passangers)
+
+        public ViewPassangersInCruiseMenu(Cruise cruise)
         {
             _cruise = cruise;
-            _passangers = passangers;
+
         }
 
         public override void CreateMenu()
         {
             _menuItems.Clear();
-            foreach( Passanger passanger in _passangers.OrderBy(o => o.Passport))
+            foreach( Passanger passanger in _cruise.CruisePassangers.OrderBy(o => o.Passport))
             {
                 _menuItems.Add(new ViewPassangerInCruiseMenu(_cruise,passanger));
             }
@@ -229,7 +229,15 @@ namespace SED_Coursework
         public override void CreateMenu()
         {
             _menuItems.Clear();
-            _menuItems.Add(new AddTripToPassangerMenu(_cruise, _passanger));
+            _menuItems.Add(new AddTripToPassanger_PortMenu(_cruise, _passanger));
+            if (_passanger.AssignedTrips.Count >= 2)
+            {
+                _menuItems.Add(new RemoveTripFromPassangerMenu(_passanger));
+            }
+            if (_cruise.CruisePassangers.Count > 0)
+            { 
+                _menuItems.Add(new RemovePassangerFromCruiseMenuItem(_cruise, _passanger));
+            }
             _menuItems.Add(new ExitMenuItem(this));
         }
         public override string MenuText()
@@ -237,11 +245,11 @@ namespace SED_Coursework
             return _passanger.ToString();
         }
     }
-    class AddTripToPassangerMenu : ConsoleMenu
+    class AddTripToPassanger_PortMenu : ConsoleMenu
     {
         Cruise _cruise;
         Passanger _passanger;
-        public AddTripToPassangerMenu(Cruise cruise, Passanger passanger)
+        public AddTripToPassanger_PortMenu(Cruise cruise, Passanger passanger)
         {
             _cruise = cruise;
             _passanger = passanger;
@@ -250,7 +258,32 @@ namespace SED_Coursework
         public override void CreateMenu()
         {
             _menuItems.Clear();
-            foreach (Trip trip in _passanger.AssignedTrips.OrderBy(o => o.TripID))
+            foreach (Port port in _cruise.CruisePorts.OrderBy(o => o.PortID))
+            {
+                _menuItems.Add(new AddTripToPassanger_TripMenu(port, _passanger));
+            }
+            
+            _menuItems.Add(new ExitMenuItem(this));
+        }
+        public override string MenuText()
+        {
+            return "Assign a trip to Passanger";
+        }
+    }
+    class AddTripToPassanger_TripMenu : ConsoleMenu
+    {
+        Port _port;
+        Passanger _passanger;
+        public AddTripToPassanger_TripMenu(Port port, Passanger passanger)
+        {
+            _port = port;
+            _passanger = passanger;
+        }
+
+        public override void CreateMenu()
+        {
+            _menuItems.Clear();
+            foreach (Trip trip in _port.PortTrips.OrderBy(o => o.TripID))
             {
                 _menuItems.Add(new AddTripToPassangerMenuItem(_passanger, trip));
             }
@@ -258,7 +291,7 @@ namespace SED_Coursework
         }
         public override string MenuText()
         {
-            return "Assign a trip to Passanger";
+            return $"Port : {_port.ToString()}";
         }
     }
     class AddTripToPassangerMenuItem : MenuItem
@@ -273,7 +306,7 @@ namespace SED_Coursework
         }
         public override void Select()
         {
-            ; _passanger.AddToAssignedTrips(_trip);
+            _passanger.AddToAssignedTrips(_trip);
         }
         public override string MenuText()
         {
@@ -319,7 +352,7 @@ namespace SED_Coursework
         }
         public override string MenuText()
         {
-            return _trip.ToString();
+            return $"Trip: {_trip.ToString()}";
         }
     }
 
@@ -338,9 +371,10 @@ namespace SED_Coursework
         }
         public override string MenuText()
         {
-            return _passanger.ToString();
+            return "Remove Passanger From Cruise";
         }
     }
+
 
 
 
@@ -365,7 +399,7 @@ namespace SED_Coursework
         }
         public override string MenuText()
         {
-            return "Passangers";
+            return "Ports";
         }
     }
     class AddPortToCruiseMenu : ConsoleMenu
@@ -388,9 +422,9 @@ namespace SED_Coursework
         }
         public override string MenuText()
         {
-            return "Port";
+            return "Add a Port to Cruise";
         }
-    } //NOT DONE NEEDS IMPLEMENTING
+    } 
     class AddPortToCruiseMenuItem : MenuItem
     {
         Cruise _cruise;
@@ -408,7 +442,7 @@ namespace SED_Coursework
         {
             return _port.ToString();
         }
-    } //NOT DONE NEEDS IMPLEMENTING
+    } 
     class RemovePortFromCruiseMenu : ConsoleMenu
     {
         Cruise _cruise;
@@ -427,7 +461,7 @@ namespace SED_Coursework
         }
         public override string MenuText()
         {
-            return "Port";
+            return "Remove a Port from Cruise";
         }
     }
     class RemovePortFromCruiseMenuItem : MenuItem
@@ -709,7 +743,7 @@ namespace SED_Coursework
         {
             string newPassangerFName;
             string newPassangerSName;
-            int newPassangerPassportNumber = 0;
+            double newPassangerPassportNumber = 0;
 
             Console.WriteLine("What is the passanger's first name?");
             newPassangerFName = Console.ReadLine();
@@ -718,7 +752,7 @@ namespace SED_Coursework
             while (true)
             {
                 Console.WriteLine("What is their Passport ID (9 digits)");
-                newPassangerPassportNumber = int.Parse(Console.ReadLine());
+                newPassangerPassportNumber = double.Parse(Console.ReadLine());
                 if(newPassangerPassportNumber.ToString().Length == 9)
                 {
                     break;

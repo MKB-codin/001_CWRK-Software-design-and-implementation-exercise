@@ -261,13 +261,13 @@ namespace SED_Coursework
     {
         public string FName { get; set; }
         public string SName { get; set; }
-        public int Passport { get; set; }
+        public double Passport { get; set; }
         public Cruise AssignedCruise { get; private set; }
         public List<Trip> AssignedTrips { get; private set; }
         public List<Trip> TripsThatDontComeFree{ get; private set;}
         public decimal PassangerTotalCost { get; set; } = 0;
         
-        public Passanger(string fname, string sname, int passport)
+        public Passanger(string fname, string sname, double passport)
         {
             FName = fname;
             SName = sname;
@@ -302,15 +302,10 @@ namespace SED_Coursework
         }
         public void AddToAssignedTrips(Trip pTrip)
         {
-            this.AssignedTrips.Add(pTrip);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"\n{pTrip.ToString()} was assigned to {this.ToString()}");
-            Console.ForegroundColor = ConsoleColor.White;
-
-            if (AssignedTrips.Count <= 2 )
+            if (AssignedTrips.Count >= 2 )
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("This passanger has already reached their two free trips");
+                Console.WriteLine("\nThis passanger has already reached their two free trips");
                 Console.WriteLine($"Adding another trip will incur a cost of £{pTrip.TripCost}");
                 while (true)
                 {
@@ -321,10 +316,11 @@ namespace SED_Coursework
                         if (response == "y")
                         {
                             Console.ForegroundColor = ConsoleColor.DarkGreen;
-                            Console.WriteLine($"Trip added along with charge of £{pTrip.TripCost}");
+                            Console.WriteLine($"Charge of £{pTrip.TripCost} applied");
                             this.AssignedTrips.Add(pTrip);
                             this.TripsThatDontComeFree.Add(pTrip);
                             Console.ForegroundColor = ConsoleColor.White;
+                            break;
                         }
                         else if (response == "n")
                         {
