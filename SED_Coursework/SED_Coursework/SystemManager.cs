@@ -233,7 +233,7 @@ namespace SED_Coursework
                 Console.WriteLine($"\n{pPassanger.FName} Added to {this.CruiseName}\n");
                 Console.ForegroundColor = ConsoleColor.White;
             }
-            // NEEDS CHECK TO PREVENT DUPLICATES
+            // NEEDS CHECK TO PREVENT DUPLICATES ✔️
         }
         public void RemovePassanger(Passanger pPassanger)
         {
@@ -300,53 +300,22 @@ namespace SED_Coursework
             Console.ForegroundColor = ConsoleColor.White;
             this.AssignedCruise = null;
         }
+
+        public bool CheckFreeTripEligibility()
+        {
+            if (this.AssignedTrips.Count >= 2)
+            {
+                return false;
+            }
+            else return true;
+        }
         public void AddToAssignedTrips(Trip pTrip)
         {
-            if (AssignedTrips.Count >= 2 )
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("\nThis passanger has already reached their two free trips");
-                Console.WriteLine($"Adding another trip will incur a cost of £{pTrip.TripCost}");
-                while (true)
-                {
-                    try
-                    {
-                        Console.WriteLine("Do you want to continue y or n?");
-                        string response = Console.ReadLine().ToLower();
-                        if (response == "y")
-                        {
-                            Console.ForegroundColor = ConsoleColor.DarkGreen;
-                            Console.WriteLine($"Charge of £{pTrip.TripCost} applied");
-                            this.AssignedTrips.Add(pTrip);
-                            this.TripsThatDontComeFree.Add(pTrip);
-                            Console.ForegroundColor = ConsoleColor.White;
-                            break;
-                        }
-                        else if (response == "n")
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine($"Cancelled");
-                            Console.ForegroundColor = ConsoleColor.White;
-                            break;
-                        }
-                    }
-                    catch { 
-                        Console.ForegroundColor = ConsoleColor.DarkYellow; 
-                        Console.WriteLine("Answer with either 'y' or 'n' ");
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
-                }                
-                Console.ForegroundColor = ConsoleColor.White;
-
-            }
-            else
-            {
-                this.AssignedTrips.Add(pTrip);
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"\n{pTrip.ToString()} was assigned to {this.ToString()}");
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-
+            AssignedTrips.Add(pTrip);
+        }
+        public void AddToTripsThatDontComeFree(Trip ptrip)
+        {
+            TripsThatDontComeFree.Add(ptrip);
         }
         public void RemoveAssignedTrip(Trip pTrip)
         {

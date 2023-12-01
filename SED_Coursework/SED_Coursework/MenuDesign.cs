@@ -306,7 +306,52 @@ namespace SED_Coursework
         }
         public override void Select()
         {
-            _passanger.AddToAssignedTrips(_trip);
+            if (!_passanger.CheckFreeTripEligibility())
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("\nThis passanger has already used their two free trips");
+                Console.WriteLine($"Adding another trip will incur a cost of £{_trip.TripCost}");
+                while (true)
+                {
+                    try
+                    {
+                        Console.WriteLine("Do you want to continue y or n?");
+                        string response = Console.ReadLine().ToLower();
+                        if (response == "y")
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkGreen;
+                            Console.WriteLine($"\n{_trip.ToString()} was assigned to {this.ToString()}");
+                            Console.WriteLine($"Charge of £{_trip.TripCost} applied");
+                            _passanger.AddToAssignedTrips(_trip);
+                            _passanger.AddToTripsThatDontComeFree(_trip);
+                            Console.ForegroundColor = ConsoleColor.White;
+                            break;
+                        }
+                        else if (response == "n")
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($"Cancelled");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            break;
+                        }
+                    }
+                    catch
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine("Answer with either 'y' or 'n' ");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                }
+                Console.ForegroundColor = ConsoleColor.White;
+
+            }
+            else
+            {
+                _passanger.AssignedTrips.Add(_trip);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"\n{_trip.ToString()} was assigned to {_passanger.ToString()}");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
         }
         public override string MenuText()
         {
