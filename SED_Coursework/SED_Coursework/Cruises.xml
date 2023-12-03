@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<cruises>
+	<cruise>
+		<id>0</id>
+		<name>"SS.Bazinga"</name>
+		<cost>3500</cost>
+	</cruise>
+</cruises>

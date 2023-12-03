@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+	<product>
+		<id>1</id>
+		<name>Product A</name>
+		<price>1200</price>
+	</product>
+
+	<product>
+		<id>2</id>
+		<name>Product B</name>
+		<price>1100</price>
+	</product>
+</root>
