@@ -6,9 +6,9 @@
 				<xs:element maxOccurs="unbounded" name="Cruise_Port">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="cruiseid" type="xs:unsignedInt" />
-							<xs:element name="portid" type="xs:unsignedInt" />
-							<xs:element name="maxdays" type="xs:unsignedInt" />
+							<xs:element name="cruiseid" type="xs:unsignedByte" />
+							<xs:element name="portid" type="xs:unsignedByte" />
+							<xs:element name="maxdays" type="xs:unsignedByte" />
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>

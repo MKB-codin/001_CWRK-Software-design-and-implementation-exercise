@@ -6,8 +6,8 @@
 				<xs:element maxOccurs="unbounded" name="Port_Trip">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="portid" type="xs:unsignedInt" />
-							<xs:element name="tripid" type="xs:unsignedInt" />
+							<xs:element name="portid" type="xs:unsignedByte" />
+							<xs:element name="tripid" type="xs:unsignedByte" />
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>

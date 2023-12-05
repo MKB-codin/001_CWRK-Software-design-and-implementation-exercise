@@ -20,18 +20,18 @@ namespace SED_Coursework
         
         public List<Cruise> Cruises;
         public List<Port> AvailablePorts; 
-        public List<Passanger> Passangers; 
+        public List<Passenger> Passengers; 
         public List<Trip> AvailableTrips; 
         public List<CruisePortDockManager> CruisePortDockManagers;
-        public List<CPD_PassangerTripManager> CPD_PassTripManagers;
+        public List<CPD_PassengerTripManager> CPD_PassTripManagers;
         public AdminSystem()
         {
             Cruises = new List<Cruise>();
             AvailablePorts = new List<Port>();
-            Passangers = new List<Passanger>();
+            Passengers = new List<Passenger>();
             AvailableTrips = new List<Trip>();
             CruisePortDockManagers = new List<CruisePortDockManager>();
-            CPD_PassTripManagers = new List<CPD_PassangerTripManager>();
+            CPD_PassTripManagers = new List<CPD_PassengerTripManager>();
     }
 
 
@@ -48,17 +48,17 @@ namespace SED_Coursework
                 CruisePortDockManagers.Add(cruisePortDockManager);
             }
         }
-        public void AddCPD_PassTripManager(CPD_PassangerTripManager cPD_PassangerTripManager)
+        public void AddCPD_PassTripManager(CPD_PassengerTripManager cPD_PassengerTripManager)
         {
-            if (CPD_PassTripManagers.Contains(cPD_PassangerTripManager) && debug)
+            if (CPD_PassTripManagers.Contains(cPD_PassengerTripManager) && debug)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine($"\n The link between {cPD_PassangerTripManager._Passanger.ToString()} and {cPD_PassangerTripManager._PortDockManager.Port.ToString()} already exists in the system\n");
+                Console.WriteLine($"\n The link between {cPD_PassengerTripManager._Passenger.ToString()} and {cPD_PassengerTripManager._PortDockManager.Port.ToString()} already exists in the system\n");
                 Console.ForegroundColor = ConsoleColor.White;
             }
             else
             {
-                CPD_PassTripManagers.Add(cPD_PassangerTripManager);
+                CPD_PassTripManagers.Add(cPD_PassengerTripManager);
             }
         }
         public void AddCruise(Cruise pCruise)
@@ -147,35 +147,35 @@ namespace SED_Coursework
             }
         }
 
-        public void AddPassanger(Passanger pPassanger)
+        public void AddPassenger(Passenger pPassenger)
         {
-            if (Passangers.Contains(pPassanger) || Passangers.FirstOrDefault(o => o.Passport == pPassanger.Passport) != null && debug)
+            if (Passengers.Contains(pPassenger) || Passengers.FirstOrDefault(o => o.Passport == pPassenger.Passport) != null && debug)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine($"\nPassanger with passport id : ({pPassanger.Passport}) already exists in the system\n");
+                Console.WriteLine($"\nPassenger with passport id : ({pPassenger.Passport}) already exists in the system\n");
                 Console.ForegroundColor = ConsoleColor.White;
             }
             else
             {
-                Passangers.Add(pPassanger);
+                Passengers.Add(pPassenger);
                 if (debug)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"\n{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) added to system\n");
+                    Console.WriteLine($"\n{pPassenger.FName + pPassenger.SName} ({pPassenger.Passport}) added to system\n");
                     Console.ForegroundColor = ConsoleColor.White;
                 }
             }
             // NEEDS CHECK TO PREVENT DUPLICATES ✔️
         }
-        public void RemovePassanger(Passanger pPassanger)
+        public void RemovePassenger(Passenger pPassenger)
         {
-            if (Passangers.Contains(pPassanger))
+            if (Passengers.Contains(pPassenger))
             {
-                Passangers.Remove(pPassanger);
+                Passengers.Remove(pPassenger);
                 if (debug)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"\n{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) removed from system\n");
+                    Console.WriteLine($"\n{pPassenger.FName + pPassenger.SName} ({pPassenger.Passport}) removed from system\n");
                     Console.ForegroundColor = ConsoleColor.White;
                 }
             }
@@ -184,7 +184,7 @@ namespace SED_Coursework
                 if (debug)
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine($"\n{pPassanger.FName + pPassanger.SName} ({pPassanger.Passport}) was not found\n");
+                    Console.WriteLine($"\n{pPassenger.FName + pPassenger.SName} ({pPassenger.Passport}) was not found\n");
                     Console.ForegroundColor = ConsoleColor.White;
                 }
             }
@@ -242,7 +242,7 @@ namespace SED_Coursework
         private static int NextCruiseID { get; set; } = 0;
         public decimal CruiseCost { get; private set; } = 0;
 
-        public List<Passanger> CruisePassangers { get; private set; }
+        public List<Passenger> CruisePassengers { get; private set; }
         public List<Port> CruisePorts{ get; private set; }
 
         public Cruise(int id, string pCruiseName, decimal pCruiseCost)
@@ -254,7 +254,7 @@ namespace SED_Coursework
             {
                 NextCruiseID++;
             }
-            CruisePassangers = new List<Passanger>();
+            CruisePassengers = new List<Passenger>();
             CruisePorts = new List<Port>();
         }
         public Cruise(string pCruiseName, decimal pCruiseCost)
@@ -263,7 +263,7 @@ namespace SED_Coursework
             CruiseCost = pCruiseCost;
             CruiseID = NextCruiseID;
             NextCruiseID++;
-            CruisePassangers = new List<Passanger>();
+            CruisePassengers = new List<Passenger>();
             CruisePorts = new List<Port>();
         }
         public Cruise()
@@ -271,7 +271,7 @@ namespace SED_Coursework
             CruiseName = "Sample Cruise Name";
             CruiseID = NextCruiseID;
             NextCruiseID++;
-            CruisePassangers = new List<Passanger>();
+            CruisePassengers = new List<Passenger>();
             CruisePorts = new List<Port>();
         }
 
@@ -317,35 +317,35 @@ namespace SED_Coursework
             }
         }
 
-        public void AddPassanger(Passanger pPassanger)
+        public void AddPassenger(Passenger pPassenger)
         {
-            if (this.CruisePassangers.Contains(pPassanger) && debug)
+            if (this.CruisePassengers.Contains(pPassenger) && debug)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine($"\n{this.ToString()} already has {pPassanger.ToString()}\n");
+                Console.WriteLine($"\n{this.ToString()} already has {pPassenger.ToString()}\n");
                 Console.ForegroundColor = ConsoleColor.White;
             }
             else
             {
-                CruisePassangers.Add(pPassanger);
+                CruisePassengers.Add(pPassenger);
                 if (debug)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"\n{pPassanger.FName} Added to {this.CruiseName}\n");
+                    Console.WriteLine($"\n{pPassenger.FName} Added to {this.CruiseName}\n");
                     Console.ForegroundColor = ConsoleColor.White;
                 }
             }
             // NEEDS CHECK TO PREVENT DUPLICATES ✔️
         }
-        public void RemovePassanger(Passanger pPassanger)
+        public void RemovePassenger(Passenger pPassenger)
         {
-            if (CruisePassangers.Contains(pPassanger))
+            if (CruisePassengers.Contains(pPassenger))
             {
-                CruisePassangers.Remove(pPassanger);
+                CruisePassengers.Remove(pPassenger);
                 if (debug)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"\n{pPassanger.FName} Removed from {this.CruiseName}\n");
+                    Console.WriteLine($"\n{pPassenger.FName} Removed from {this.CruiseName}\n");
                     Console.ForegroundColor = ConsoleColor.White;
                 }
             }
@@ -354,7 +354,7 @@ namespace SED_Coursework
                 if (debug)
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine($"\n{pPassanger.FName} was not found\n");
+                    Console.WriteLine($"\n{pPassenger.FName} was not found\n");
                     Console.ForegroundColor = ConsoleColor.White;
                 }
             }
@@ -380,20 +380,20 @@ namespace SED_Coursework
         }
     }
 
-    class CPD_PassangerTripManager
+    class CPD_PassengerTripManager
     {
-        public Passanger _Passanger;
+        public Passenger _Passenger;
         public CruisePortDockManager _PortDockManager;
         public List<Trip> Trips;
-        public CPD_PassangerTripManager(Passanger passanger, CruisePortDockManager cruisePortDockManager)
+        public CPD_PassengerTripManager(Passenger Passenger, CruisePortDockManager cruisePortDockManager)
         {
-            _Passanger = passanger;
+            _Passenger = Passenger;
             _PortDockManager = cruisePortDockManager;
             Trips = new List<Trip>();
         }
-        public CPD_PassangerTripManager(Passanger passanger)
+        public CPD_PassengerTripManager(Passenger Passenger)
         {
-            _Passanger = passanger;
+            _Passenger = Passenger;
         }
         public bool DaysRemaining()
         {
@@ -424,7 +424,7 @@ namespace SED_Coursework
         }
     }
 
-    class Passanger
+    class Passenger
     {
         public bool debug = false;
         public string FName { get; set; }
@@ -432,9 +432,9 @@ namespace SED_Coursework
         public string Passport { get; set; }
         public List<Cruise> P_Cruises { get; set; }
 
-        public decimal PassangerTotalCost { get; set; } = 0;
+        public decimal PassengerTotalCost { get; set; } = 0;
         
-        public Passanger(string fname, string sname, string passport)
+        public Passenger(string fname, string sname, string passport)
         {
             FName = fname;
             SName = sname;
@@ -442,7 +442,7 @@ namespace SED_Coursework
             P_Cruises = new List<Cruise>();
         }
 
-        public bool IsCruiseAssignedToPassanger()
+        public bool IsCruiseAssignedToPassenger()
         {
             if (P_Cruises.Count > 0)
             {
@@ -450,12 +450,12 @@ namespace SED_Coursework
             }
             else { return false; }
         }
-        public void AssignCruiseToPassanger(Cruise pCruise)
+        public void AssignCruiseToPassenger(Cruise pCruise)
         {
             if (!P_Cruises.Contains(pCruise))
             {
                 P_Cruises.Add(pCruise);
-                pCruise.AddPassanger(this);
+                pCruise.AddPassenger(this);
                 if (debug)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -464,9 +464,9 @@ namespace SED_Coursework
                 }
 
             }
-            else if(P_Cruises.Contains(pCruise) && !pCruise.CruisePassangers.Contains(this))
+            else if(P_Cruises.Contains(pCruise) && !pCruise.CruisePassengers.Contains(this))
             {
-                pCruise.AddPassanger(this);
+                pCruise.AddPassenger(this);
                 if (debug)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -479,18 +479,18 @@ namespace SED_Coursework
                 if (debug)
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine($"\n{pCruise.ToString()} already assigned to passanger\n");
+                    Console.WriteLine($"\n{pCruise.ToString()} already assigned to Passenger\n");
                     Console.ForegroundColor = ConsoleColor.White;
                 }
             }
 
 
         }
-        public void UnAssignCruiseFromPassanger(Cruise pCruise)
+        public void UnAssignCruiseFromPassenger(Cruise pCruise)
         {
             if (P_Cruises.Contains(pCruise))
             {
-                pCruise.RemovePassanger(this);
+                pCruise.RemovePassenger(this);
                 P_Cruises.Remove(pCruise);
                 if (debug)
                 {
@@ -510,7 +510,7 @@ namespace SED_Coursework
             }
         }
 
-        public bool CheckFreeTripEligibility(CPD_PassangerTripManager pcpd)
+        public bool CheckFreeTripEligibility(CPD_PassengerTripManager pcpd)
         {
             if (pcpd.Trips.Count >= 2)
             {
@@ -520,14 +520,14 @@ namespace SED_Coursework
         }
 
 
-        public void CalculatePassangerTotalCost(CPD_PassangerTripManager pcpd)
+        public void CalculatePassengerTotalCost(CPD_PassengerTripManager pcpd)
         {
             decimal cost = 0;
             try { cost += pcpd._PortDockManager.Cruise.CruiseCost; } catch (NullReferenceException e) { cost += 0; }
             try
             {
                 AdminSystem adminSystem;
-                CPD_PassangerTripManager cpd = pcpd;
+                CPD_PassengerTripManager cpd = pcpd;
                 int freecounter = 0;
                 foreach (Trip trip in cpd.Trips)
                 {
@@ -539,7 +539,7 @@ namespace SED_Coursework
                 }
             }
             catch (NullReferenceException e) { cost += 0; }
-            this.PassangerTotalCost = Math.Round(cost,2);
+            this.PassengerTotalCost = Math.Round(cost,2);
         }
         public override string ToString()
         {

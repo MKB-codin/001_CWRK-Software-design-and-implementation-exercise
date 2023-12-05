@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>SED_Coursework</id>
+    <version>1.0.0</version>
+    <authors>SED_Coursework</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework="net6.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\mkbof\source\repos\MKB-codin\001_CWRK-Software-design-and-implementation-exercise\SED_Coursework\SED_Coursework\bin\Debug\net6.0\SED_Coursework.runtimeconfig.json" target="lib\net6.0\SED_Coursework.runtimeconfig.json" />
+    <file src="C:\Users\mkbof\source\repos\MKB-codin\001_CWRK-Software-design-and-implementation-exercise\SED_Coursework\SED_Coursework\bin\Debug\net6.0\SED_Coursework.dll" target="lib\net6.0\SED_Coursework.dll" />
+  </files>
+</package>

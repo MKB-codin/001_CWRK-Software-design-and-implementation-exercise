@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Passangers>
-	<Passanger>
+<Passengers>
+	<Passenger>
 		<passport>123456789</passport>
 		<fname>komail</fname>
 		<sname>baig</sname>
-	</Passanger>
-	<Passanger>
+	</Passenger>
+	<Passenger>
 		<passport>798564123</passport>
 		<fname>kieden</fname>
 		<sname>mihale</sname>
-	</Passanger>
-	<Passanger>
+	</Passenger>
+	<Passenger>
 		<passport>654879321</passport>
 		<fname>alfie</fname>
 		<sname>joe</sname>
-	</Passanger>
-</Passangers>
+	</Passenger>
+</Passengers>

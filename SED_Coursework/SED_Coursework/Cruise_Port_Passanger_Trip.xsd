@@ -6,10 +6,10 @@
 				<xs:element maxOccurs="unbounded" name="CPPT">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="cruiseid" type="xs:unsignedInt" />
-							<xs:element name="portid" type="xs:unsignedInt" />
-							<xs:element name="passangerpassport" type="xs:string" />
-							<xs:element name="tripid" type="xs:unsignedInt" />
+							<xs:element name="cruiseid" type="xs:unsignedByte" />
+							<xs:element name="portid" type="xs:unsignedByte" />
+							<xs:element name="Passengerpassport" type="xs:string" />
+							<xs:element name="tripid" type="xs:unsignedByte" />
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>

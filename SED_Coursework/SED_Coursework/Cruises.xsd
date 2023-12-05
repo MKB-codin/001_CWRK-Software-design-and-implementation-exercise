@@ -6,9 +6,9 @@
 				<xs:element maxOccurs="unbounded" name="cruise">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="id" type="xs:unsignedInt" />
+							<xs:element name="id" type="xs:unsignedByte" />
 							<xs:element name="name" type="xs:string" />
-							<xs:element name="cost" type="xs:unsignedInt" />
+							<xs:element name="cost" type="xs:unsignedShort" />
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
