@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Trips>
+	<Trip>
+		<id>0</id>
+		<name>Archery</name>
+		<cost>15</cost>
+	</Trip>
+	<Trip>
+		<id>1</id>
+		<name>Camping</name>
+		<cost>25</cost>
+	</Trip>
+	<Trip>
+		<id>2</id>
+		<name>Fishing</name>
+		<cost>30</cost>
+	</Trip>
+	<Trip>
+		<id>3</id>
+		<name>Bowling</name>
+		<cost>10</cost>
+	</Trip>
+	<Trip>
+		<id>4</id>
+		<name>Surfing</name>
+		<cost>20</cost>
+	</Trip>
+	<Trip>
+		<id>5</id>
+		<name>Jetski</name>
+		<cost>50</cost>
+	</Trip>
+</Trips>

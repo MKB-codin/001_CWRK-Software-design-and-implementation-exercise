@@ -198,12 +198,24 @@ namespace SED_Coursework
     {
         public string CruiseName { get; set; }
         public int CruiseID { get; private set; }
-        private static int NextCruiseID { get; set; } = 1;
+        private static int NextCruiseID { get; set; } = 0;
         public decimal CruiseCost { get; private set; } = 0;
 
         public List<Passanger> CruisePassangers { get; private set; }
         public List<Port> CruisePorts{ get; private set; }
 
+        public Cruise(int id, string pCruiseName, decimal pCruiseCost)
+        {
+            CruiseName = pCruiseName;
+            CruiseCost = pCruiseCost;
+            CruiseID = id;
+            if(id == NextCruiseID)
+            {
+                NextCruiseID++;
+            }
+            CruisePassangers = new List<Passanger>();
+            CruisePorts = new List<Port>();
+        }
         public Cruise(string pCruiseName, decimal pCruiseCost)
         {
             CruiseName = pCruiseName;
@@ -358,19 +370,16 @@ namespace SED_Coursework
     {
         public string FName { get; set; }
         public string SName { get; set; }
-        public double Passport { get; set; }
+        public string Passport { get; set; }
         public List<Cruise> P_Cruises { get; set; }
-        public List<Trip> AssignedTrips { get; private set; }
-        public List<Trip> TripsThatDontComeFree{ get; private set;}
+
         public decimal PassangerTotalCost { get; set; } = 0;
         
-        public Passanger(string fname, string sname, double passport)
+        public Passanger(string fname, string sname, string passport)
         {
             FName = fname;
             SName = sname;
             Passport = passport;
-            AssignedTrips = new List<Trip>();
-            TripsThatDontComeFree = new List<Trip>();
             P_Cruises = new List<Cruise>();
         }
 
@@ -384,20 +393,29 @@ namespace SED_Coursework
         }
         public void AssignCruiseToPassanger(Cruise pCruise)
         {
-            if (P_Cruises.Contains(pCruise))
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine($"\n{pCruise.ToString()} already exists in the system\n");
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-            else
+            if (!P_Cruises.Contains(pCruise))
             {
                 P_Cruises.Add(pCruise);
                 pCruise.AddPassanger(this);
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"\n{pCruise.ToString()} was assinged to {this.ToString()}");
                 Console.ForegroundColor = ConsoleColor.White;
+
             }
+            else if(P_Cruises.Contains(pCruise) && !pCruise.CruisePassangers.Contains(this))
+            {
+                pCruise.AddPassanger(this);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"\n{pCruise.ToString()} was assinged to {this.ToString()}");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"\n{pCruise.ToString()} already assigned to passanger\n");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+
 
         }
         public void UnAssignCruiseFromPassanger(Cruise pCruise)
@@ -418,63 +436,32 @@ namespace SED_Coursework
             }
         }
 
-        public bool CheckFreeTripEligibility()
+        public bool CheckFreeTripEligibility(CPD_PassangerTripManager pcpd)
         {
-            if (this.AssignedTrips.Count >= 2)
+            if (pcpd.Trips.Count >= 2)
             {
                 return false;
             }
             else return true;
         }
 
-        public void CallibrateTrips()
+
+        public void CalculatePassangerTotalCost(CPD_PassangerTripManager pcpd)
         {
-            if (this.AssignedTrips.Count - this.TripsThatDontComeFree.Count < 2 && this.TripsThatDontComeFree.Count > 0)
-            {
-                while (this.AssignedTrips.Count <= 2 && this.TripsThatDontComeFree.Count > 0)
-                {
-                    this.TripsThatDontComeFree.RemoveAt(0);
-                }
-            }
-        }
-        public void AddToAssignedTrips(Trip pTrip)
-        {
-            AssignedTrips.Add(pTrip);
-        }
-        public void AddToTripsThatDontComeFree(Trip ptrip)
-        {
-            TripsThatDontComeFree.Add(ptrip);
-        }
-        public void RemoveAssignedTrip(Trip pTrip)
-        {
-            if (this.AssignedTrips.Contains(pTrip))
-            {
-                if (this.TripsThatDontComeFree.Contains(pTrip))
-                {
-                    this.TripsThatDontComeFree.Remove(pTrip);
-                }
-                this.AssignedTrips.Remove(pTrip);
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"\n {pTrip.ToString()} was removed from {this.ToString()}");
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine($"\n{pTrip.ToString()} was not found");
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-        }
-        public void CalculatePassangerTotalCost(Cruise cruise)
-        {
-            CallibrateTrips();
             decimal cost = 0;
-            try { cost += cruise.CruiseCost; } catch (NullReferenceException e) { cost += 0; }
+            try { cost += pcpd._PortDockManager.Cruise.CruiseCost; } catch (NullReferenceException e) { cost += 0; }
             try
             {
-                foreach (Trip trip in this.TripsThatDontComeFree)
+                AdminSystem adminSystem;
+                CPD_PassangerTripManager cpd = pcpd;
+                int freecounter = 0;
+                foreach (Trip trip in cpd.Trips)
                 {
-                    cost += trip.TripCost;
+                    if (freecounter >= 2)
+                    {
+                        cost += trip.TripCost;
+                    }
+                    freecounter++;
                 }
             }
             catch (NullReferenceException e) { cost += 0; }
@@ -499,6 +486,16 @@ namespace SED_Coursework
         private static int NextPortID { get; set; } = 1;
         public List<Trip> PortTrips { get; private set; }
 
+        public Port(int portId, string portName)
+        {
+            PortID = portId;
+            PortName = portName;
+            if(portId == NextPortID)
+            {
+                NextPortID++;
+            }
+            PortTrips = new List<Trip>();
+        }
         public Port(string pPortName)
         {
             PortName = pPortName;
@@ -554,13 +551,24 @@ namespace SED_Coursework
         public decimal TripCost { get; private set; } = 0;
         public List<Passanger> TripPassangers;
 
-        public Trip(string ptripName, int ptripID,List<Passanger> pPassangers, decimal pTripCost)
+        public Trip(string ptripName, int ptripID, List<Passanger> pPassangers, decimal pTripCost)
         {
             TripName = ptripName;
             TripID = ptripID;
             TripCost = pTripCost;
             if(ptripID == NextTripID) { NextTripID++; } 
             TripPassangers = pPassangers;
+        }
+        public Trip(string ptripName, int ptripID, decimal pTripCost)
+        {
+            TripName = ptripName;
+            TripID = ptripID;
+            TripCost = pTripCost;
+            if(ptripID == NextTripID)
+            {
+                NextTripID++;
+            }
+            TripPassangers = new List<Passanger>();
         }
         public Trip(string pTripName, List<Passanger> pPassangers, decimal pTripCost)
         {

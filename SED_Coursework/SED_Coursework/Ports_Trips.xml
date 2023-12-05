@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Port_Trips>
+	<Port_Trip>
+		<portid>0</portid>
+		<tripid>0</tripid>
+	</Port_Trip>
+	<Port_Trip>
+		<portid>0</portid>
+		<tripid>1</tripid>
+	</Port_Trip>
+	<Port_Trip>
+		<portid>0</portid>
+		<tripid>2</tripid>
+	</Port_Trip>
+	<Port_Trip>
+		<portid>0</portid>
+		<tripid>3</tripid>
+	</Port_Trip>
+
+	<Port_Trip>
+		<portid>1</portid>
+		<tripid>3</tripid>
+	</Port_Trip>
+
+	<Port_Trip>
+		<portid>2</portid>
+		<tripid>2</tripid>
+	</Port_Trip>
+	<Port_Trip>
+		<portid>2</portid>
+		<tripid>4</tripid>
+	</Port_Trip>
+	<Port_Trip>
+		<portid>2</portid>
+		<tripid>5</tripid>
+	</Port_Trip>
+
+	<Port_Trip>
+		<portid>3</portid>
+		<tripid>1</tripid>
+	</Port_Trip>
+	<Port_Trip>
+		<portid>3</portid>
+		<tripid>5</tripid>
+	</Port_Trip>
+	<Port_Trip>
+		<portid>3</portid>
+		<tripid>2</tripid>
+	</Port_Trip>
+
+	<Port_Trip>
+		<portid>4</portid>
+		<tripid>2</tripid>
+	</Port_Trip>
+	<Port_Trip>
+		<portid>4</portid>
+		<tripid>5</tripid>
+	</Port_Trip>
+
+	<Port_Trip>
+		<portid>5</portid>
+		<tripid>4</tripid>
+	</Port_Trip>
+</Port_Trips>
