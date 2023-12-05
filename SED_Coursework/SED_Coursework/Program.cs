@@ -7,6 +7,11 @@ AdminSystem system = new AdminSystem();
 
 MainFileReader mainFileReader = new MainFileReader(system);
 mainFileReader.Begin();
+
+
+
+
+
 while (true)
 {
     Console.WriteLine("ENTER PASSWORD: ");
@@ -18,3 +23,6 @@ while (true)
     else { Console.WriteLine("Incorrect"); }
 }
 new SystemManagerMenu(system).Select();
+
+MainFileWriter mainFileWriter = new MainFileWriter(system);
+mainFileWriter.Begin();

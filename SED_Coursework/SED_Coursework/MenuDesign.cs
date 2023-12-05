@@ -71,7 +71,9 @@ namespace SED_Coursework
             string newCruiseName = Console.ReadLine().ToLower();
             decimal newCruiseCost = Math.Round(ConsoleHelpers.GetDecimalInRange(0, 10000000000, "Enter Cruise cost"),2);
             Cruise newCruise = new Cruise(newCruiseName, newCruiseCost);
+            _system.debug = !_system.debug;
             _system.AddCruise(newCruise);
+            _system.debug = !_system.debug;
         }
         public override string MenuText()
         {
@@ -184,6 +186,7 @@ namespace SED_Coursework
         }
         public override void Select()
         {
+            _passanger.debug = !_passanger.debug;
             _passanger.AssignCruiseToPassanger(_cruise);
         }
         public override string MenuText()
@@ -553,7 +556,9 @@ namespace SED_Coursework
         }
         public override void Select()
         {
+            _cruise.debug = !_cruise.debug;
             _cruise.RemovePassanger(_passanger);
+            _cruise.debug = !_cruise.debug;
         }
         public override string MenuText()
         {
@@ -625,7 +630,9 @@ namespace SED_Coursework
             int daysDocked = int.Parse(ConsoleHelpers.GetDecimalInRange(1, 7, "How many days wi ll this cruise stay at this port?").ToString());
             CruisePortDockManager cruisePortDockManager = new CruisePortDockManager(_cruise, _port, daysDocked); 
             _system.AddC_P_DManager(cruisePortDockManager);
+            _cruise.debug = !_cruise.debug;
             _cruise.AddPort(_port);
+            _cruise.debug = !_cruise.debug;
         }
         public override string MenuText()
         {
@@ -664,7 +671,9 @@ namespace SED_Coursework
         }
         public override void Select()
         {
+            _cruise.debug = !_cruise.debug;
             _cruise.RemovePort(_port);
+            _cruise.debug = !_cruise.debug;
         }
         public override string MenuText()
         {
@@ -685,7 +694,10 @@ namespace SED_Coursework
 
         public override void Select()
         {
+            _system.debug = !_system.debug;
             _system.RemoveCruise(_cruise);
+            _system.debug = !_system.debug;
+
         }
         public override string MenuText()
         {
@@ -732,7 +744,9 @@ namespace SED_Coursework
             Console.WriteLine("What is the name of the port?");
             newPortName = Console.ReadLine().ToLower();
             Port newPort = new Port(newPortName);
+            _system.debug = !_system.debug;
             _system.AddPort(newPort);
+            _system.debug = !_system.debug;
         }
         public override string MenuText()
         {
@@ -822,7 +836,9 @@ namespace SED_Coursework
         }
         public override void Select()
         {
+            _port.debug = !_port.debug;
             _port.AddTrip(_trip);
+            _port.debug = !_port.debug;
         }
         public override string MenuText()
         {
@@ -864,7 +880,9 @@ namespace SED_Coursework
 
         public override void Select()
         {
+            _port.debug = !_port.debug;
             _port.RemoveTrip(_trip);
+            _port.debug = !_port.debug;
         }
         public override string MenuText()
         {
@@ -904,7 +922,7 @@ namespace SED_Coursework
         public override void CreateMenu()
         {
             _menuItems.Clear();
-            _menuItems.Add(new AddPassangerMenu(_system));
+            _menuItems.Add(new AddPassangerMenuItem(_system));
             if (_system.Passangers.Count > 0)
             {
                 _menuItems.Add(new ViewPassangersMenu(_system));
@@ -917,10 +935,10 @@ namespace SED_Coursework
         }
     }
 
-    class AddPassangerMenu : MenuItem
+    class AddPassangerMenuItem : MenuItem
     {
         AdminSystem _system;
-        public AddPassangerMenu(AdminSystem system)
+        public AddPassangerMenuItem(AdminSystem system)
         {
             _system = system;
         }
@@ -955,7 +973,9 @@ namespace SED_Coursework
                 }
             }
             Passanger newPassanger = new Passanger(newPassangerFName, newPassangerSName, newPassangerPassportNumber);
+            _system.debug = !_system.debug;
             _system.AddPassanger(newPassanger);
+            _system.debug = !_system.debug;
         }
     }
 
@@ -995,7 +1015,7 @@ namespace SED_Coursework
             _menuItems.Clear();
             if ( _passanger.IsCruiseAssignedToPassanger())
             {
-                _menuItems.Add(new ViewPassangerCruiseMenuItem(_passanger));
+                _menuItems.Add(new ViewPassangerCruisesMenuItem(_passanger));
                 _menuItems.Add(new UnAssignCruiseFromPassangerMenu(_passanger));
             }
             else
@@ -1048,7 +1068,9 @@ namespace SED_Coursework
 
         public override void Select()
         {
+            _Passanger.debug = !_Passanger.debug;
             _Passanger.AssignCruiseToPassanger(_Cruise);
+            _Passanger.debug = !_Passanger.debug;
         }
         public override string MenuText()
         {
@@ -1107,10 +1129,10 @@ namespace SED_Coursework
             return _Cruise.ToString();
         }
     }
-    class ViewPassangerCruiseMenuItem : MenuItem
+    class ViewPassangerCruisesMenuItem : MenuItem
     {
         Passanger _passanger;
-        public ViewPassangerCruiseMenuItem(Passanger passanger)
+        public ViewPassangerCruisesMenuItem(Passanger passanger)
         {
             _passanger = passanger;
         }
@@ -1163,7 +1185,9 @@ namespace SED_Coursework
         }
         public override void Select()
         {
+            _Passanger.debug = !_Passanger.debug;
             _Passanger.UnAssignCruiseFromPassanger(_Cruise);
+            _Passanger.debug = !_Passanger.debug;
         }
         public override string MenuText()
         {
@@ -1182,7 +1206,9 @@ namespace SED_Coursework
         }
         public override void Select()
         {
+            _system.debug = !_system.debug;
             _system.RemovePassanger(_passanger);
+            _system.debug = !_system.debug;
         }
         public override string MenuText()
         {
@@ -1229,7 +1255,9 @@ namespace SED_Coursework
             newTripName = Console.ReadLine().ToLower();
             decimal newTripCost = Math.Round(ConsoleHelpers.GetDecimalInRange(0, 10000000000, "Enter Trip cost"),2);
             Trip newTrip = new Trip(newTripName, newTripCost);
+            _system.debug = !_system.debug;
             _system.AddTrip(newTrip);
+            _system.debug = !_system.debug;
         }
         public override string MenuText()
         {
@@ -1308,7 +1336,9 @@ namespace SED_Coursework
         }
         public override void Select()
         {
+            _system.debug = !_system.debug;
             _system.RemoveTrip(_trip);
+            _system.debug = !_system.debug;
         }
         public override string MenuText()
         {

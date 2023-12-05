@@ -6,7 +6,6 @@
 		<passangerpassport>654879321</passangerpassport>
 		<tripid>1</tripid>
 	</CPPT>
-
 	<CPPT>
 		<cruiseid>1</cruiseid>
 		<portid>4</portid>
@@ -31,7 +30,6 @@
 		<passangerpassport>798564123</passangerpassport>
 		<tripid>5</tripid>
 	</CPPT>
-
 	<CPPT>
 		<cruiseid>2</cruiseid>
 		<portid>1</portid>
@@ -44,7 +42,6 @@
 		<passangerpassport>123456789</passangerpassport>
 		<tripid>3</tripid>
 	</CPPT>
-
 	<CPPT>
 		<cruiseid>3</cruiseid>
 		<portid>1</portid>

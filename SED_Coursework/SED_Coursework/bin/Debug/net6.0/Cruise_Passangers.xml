@@ -1,10 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <CruisePassangers>
 	<CruisePassanger>
 		<cruiseid>0</cruiseid>
 		<passangerpassport>654879321</passangerpassport>
 	</CruisePassanger>
-
 	<CruisePassanger>
 		<cruiseid>1</cruiseid>
 		<passangerpassport>123456789</passangerpassport>
@@ -17,15 +16,12 @@
 		<cruiseid>1</cruiseid>
 		<passangerpassport>654879321</passangerpassport>
 	</CruisePassanger>
-
 	<CruisePassanger>
 		<cruiseid>2</cruiseid>
 		<passangerpassport>123456789</passangerpassport>
 	</CruisePassanger>
-
 	<CruisePassanger>
 		<cruiseid>3</cruiseid>
 		<passangerpassport>798564123</passangerpassport>
 	</CruisePassanger>
-	
 </CruisePassangers>

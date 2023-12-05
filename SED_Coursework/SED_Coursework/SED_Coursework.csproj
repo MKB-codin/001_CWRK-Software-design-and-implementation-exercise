@@ -8,14 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Passanger_Trips.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Passanger_Trips.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Cruises.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
