@@ -224,7 +224,6 @@ namespace SED_Coursework
         AdminSystem _system;
         Cruise _cruise;
         Passenger _Passenger;
-        CPD_PassengerTripManager _tripManager;
         public ViewPassengerInCruiseMenu(AdminSystem system,Cruise crusie, Passenger Passenger)
         {
             _system = system;

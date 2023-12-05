@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<cruises>
+	<cruise>
+		<id>0</id>
+		<name>SS.Rosalina</name>
+		<cost>3500</cost>
+	</cruise>
+	<cruise>
+		<id>1</id>
+		<name>SS.Bazinga</name>
+		<cost>2000</cost>
+	</cruise>
+	<cruise>
+		<id>2</id>
+		<name>SS.Symphony</name>
+		<cost>4000</cost>
+	</cruise>
+	<cruise>
+		<id>3</id>
+		<name>SS.Brokie</name>
+		<cost>500</cost>
+	</cruise>
+</cruises>

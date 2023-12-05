@@ -523,10 +523,9 @@ namespace SED_Coursework
         public void CalculatePassengerTotalCost(CPD_PassengerTripManager pcpd)
         {
             decimal cost = 0;
-            try { cost += pcpd._PortDockManager.Cruise.CruiseCost; } catch (NullReferenceException e) { cost += 0; }
+            try { cost += pcpd._PortDockManager.Cruise.CruiseCost; } catch (NullReferenceException) { cost += 0; }
             try
             {
-                AdminSystem adminSystem;
                 CPD_PassengerTripManager cpd = pcpd;
                 int freecounter = 0;
                 foreach (Trip trip in cpd.Trips)
@@ -538,7 +537,7 @@ namespace SED_Coursework
                     freecounter++;
                 }
             }
-            catch (NullReferenceException e) { cost += 0; }
+            catch (NullReferenceException) { cost += 0; }
             this.PassengerTotalCost = Math.Round(cost,2);
         }
         public override string ToString()
