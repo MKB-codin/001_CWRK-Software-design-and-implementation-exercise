@@ -379,7 +379,7 @@ namespace SED_Coursework
         }
         public override void Select()
         {
-            if (!_Passenger.CheckFreeTripEligibility(_PassengerTripManager))
+            if (!_PassengerTripManager.CheckFreeTripEligibility())
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("\nThis Passenger has already used their two free trips");
@@ -1116,9 +1116,9 @@ namespace SED_Coursework
 
         public override void Select()
         {
-            CPD_PassengerTripManager cpd = _system.CPD_PassTripManagers.FirstOrDefault(o => o._Passenger == _Passenger && o._PortDockManager.Cruise == _Cruise);
+            CPD_PassengerTripManager cpdPT = _system.CPD_PassTripManagers.FirstOrDefault(o => o._Passenger == _Passenger && o._PortDockManager.Cruise == _Cruise);
 
-            _Passenger.CalculatePassengerTotalCost(cpd);
+            cpdPT.CalculatePassengerTotalCost();
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($"£{_Passenger.PassengerTotalCost}\n");
             Console.ForegroundColor = ConsoleColor.White;

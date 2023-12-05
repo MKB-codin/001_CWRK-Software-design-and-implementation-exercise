@@ -422,6 +422,34 @@ namespace SED_Coursework
                 throw new Exception("Somehow this trip does not exist in CPD_PT list.");
             }
         }
+        public bool CheckFreeTripEligibility()
+        {
+            if (this.Trips.Count >= 2)
+            {
+                return false;
+            }
+            else return true;
+        }
+        public void CalculatePassengerTotalCost()
+        {
+            decimal cost = 0;
+            try { cost += this._PortDockManager.Cruise.CruiseCost; } catch (NullReferenceException) { cost += 0; }
+            try
+            {
+                int freecounter = 0;
+                foreach (Trip trip in this.Trips)
+                {
+                    if (freecounter >= 2)
+                    {
+                        cost += trip.TripCost;
+                    }
+                    freecounter++;
+                }
+            }
+            catch (NullReferenceException) { cost += 0; }
+            this._Passenger.PassengerTotalCost = Math.Round(cost, 2);
+        }
+
     }
 
     class Passenger
@@ -510,36 +538,6 @@ namespace SED_Coursework
             }
         }
 
-        public bool CheckFreeTripEligibility(CPD_PassengerTripManager pcpd)
-        {
-            if (pcpd.Trips.Count >= 2)
-            {
-                return false;
-            }
-            else return true;
-        }
-
-
-        public void CalculatePassengerTotalCost(CPD_PassengerTripManager pcpd)
-        {
-            decimal cost = 0;
-            try { cost += pcpd._PortDockManager.Cruise.CruiseCost; } catch (NullReferenceException) { cost += 0; }
-            try
-            {
-                CPD_PassengerTripManager cpd = pcpd;
-                int freecounter = 0;
-                foreach (Trip trip in cpd.Trips)
-                {
-                    if (freecounter >= 2)
-                    {
-                        cost += trip.TripCost;
-                    }
-                    freecounter++;
-                }
-            }
-            catch (NullReferenceException) { cost += 0; }
-            this.PassengerTotalCost = Math.Round(cost,2);
-        }
         public override string ToString()
         {
             return $"{this.FName} {this.SName} ({this.Passport})";
