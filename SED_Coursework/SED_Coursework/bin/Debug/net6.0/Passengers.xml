@@ -15,4 +15,14 @@
 		<fname>alfie</fname>
 		<sname>joe</sname>
 	</Passenger>
+	<Passenger>
+		<passport>000000001</passport>
+		<fname>bruh</fname>
+		<sname>moment</sname>
+	</Passenger>
+	<Passenger>
+		<passport>514697823</passport>
+		<fname>john</fname>
+		<sname>bobby</sname>
+	</Passenger>
 </Passengers>

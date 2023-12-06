@@ -49,8 +49,11 @@ namespace SED_Coursework
             xmlDoc.Load("Cruises.xml");
             foreach(XmlNode node in xmlDoc.DocumentElement)
             {
-                Cruise newCruise = new Cruise(int.Parse(node.ChildNodes[0].InnerText), node.ChildNodes[1].InnerText, decimal.Parse(node.ChildNodes[2].InnerText));
-                _system.AddCruise(newCruise);
+                try
+                {
+                    Cruise newCruise = new Cruise(int.Parse(node.ChildNodes[0].InnerText), node.ChildNodes[1].InnerText, decimal.Parse(node.ChildNodes[2].InnerText));
+                    _system.AddCruise(newCruise);
+                } catch {}
             }
         }
         
@@ -68,8 +71,11 @@ namespace SED_Coursework
             xmlDoc.Load("Passengers.xml");
             foreach (XmlNode node in xmlDoc.DocumentElement)
             {
-                Passenger newPassenger = new Passenger(node.ChildNodes[1].InnerText, node.ChildNodes[2].InnerText, node.ChildNodes[0].InnerText);
-                _system.AddPassenger(newPassenger);
+                try
+                {
+                    Passenger newPassenger = new Passenger(node.ChildNodes[1].InnerText, node.ChildNodes[2].InnerText, node.ChildNodes[0].InnerText);
+                    _system.AddPassenger(newPassenger);
+                }catch {}
             }
         }
     }
@@ -86,8 +92,11 @@ namespace SED_Coursework
             xmlDoc.Load("Ports.xml");
             foreach (XmlNode node in xmlDoc.DocumentElement)
             {
-                Port newport = new Port(int.Parse(node.ChildNodes[0].InnerText),node.ChildNodes[1].InnerText);
-                _system.AddPort(newport);
+                try
+                {
+                    Port newport = new Port(int.Parse(node.ChildNodes[0].InnerText), node.ChildNodes[1].InnerText);
+                    _system.AddPort(newport);
+                }catch {}
             }
         }
     }
@@ -104,8 +113,11 @@ namespace SED_Coursework
             xmlDoc.Load("Trips.xml");
             foreach (XmlNode node in xmlDoc.DocumentElement)
             {
-                Trip newtrip = new Trip(node.ChildNodes[1].InnerText, int.Parse(node.ChildNodes[0].InnerText), decimal.Parse(node.ChildNodes[2].InnerText));
-                _system.AddTrip(newtrip);
+                try
+                {
+                    Trip newtrip = new Trip(node.ChildNodes[1].InnerText, int.Parse(node.ChildNodes[0].InnerText), decimal.Parse(node.ChildNodes[2].InnerText));
+                    _system.AddTrip(newtrip);
+                }catch {}
             }
         }
     }
@@ -122,9 +134,12 @@ namespace SED_Coursework
             xmlDoc.Load("Ports_Trips.xml");
             foreach(XmlNode node in xmlDoc.DocumentElement)
             {
-                Port port = _system.AvailablePorts.FirstOrDefault(o=>o.PortID == int.Parse(node.ChildNodes[0].InnerText));
-                Trip trip = _system.AvailableTrips.FirstOrDefault(o=>o.TripID == int.Parse(node.ChildNodes[1].InnerText));
-                port.AddTrip(trip);
+                try
+                {
+                    Port port = _system.AvailablePorts.FirstOrDefault(o => o.PortID == int.Parse(node.ChildNodes[0].InnerText));
+                    Trip trip = _system.AvailableTrips.FirstOrDefault(o => o.TripID == int.Parse(node.ChildNodes[1].InnerText));
+                    port.AddTrip(trip);
+                }catch {}
             }
         }
     }
@@ -141,9 +156,12 @@ namespace SED_Coursework
             xmlDoc.Load("Cruise_Passengers.xml");
             foreach(XmlNode node in xmlDoc.DocumentElement)
             {
-                Cruise cruise = _system.Cruises.FirstOrDefault(o => o.CruiseID == int.Parse(node.ChildNodes[0].InnerText));
-                Passenger Passenger = _system.Passengers.FirstOrDefault(o => o.Passport == node.ChildNodes[1].InnerText);
-                Passenger.AssignCruiseToPassenger(cruise);
+                try
+                {
+                    Cruise cruise = _system.Cruises.FirstOrDefault(o => o.CruiseID == int.Parse(node.ChildNodes[0].InnerText));
+                    Passenger Passenger = _system.Passengers.FirstOrDefault(o => o.Passport == node.ChildNodes[1].InnerText);
+                    Passenger.AssignCruiseToPassenger(cruise);
+                } catch {}
             }
         }
     }
@@ -160,11 +178,14 @@ namespace SED_Coursework
             xmlDoc.Load("Cruise_Ports.xml");
             foreach(XmlNode node in xmlDoc.DocumentElement)
             {
-                Cruise cruise = _system.Cruises.FirstOrDefault(o => o.CruiseID == int.Parse(node.ChildNodes[0].InnerText));
-                Port port = _system.AvailablePorts.FirstOrDefault(o => o.PortID == int.Parse(node.ChildNodes[1].InnerText));
-                CruisePortDockManager newCPD = new CruisePortDockManager(cruise, port, int.Parse(node.ChildNodes[2].InnerText));
-                cruise.AddPort(port);
-                _system.AddC_P_DManager(newCPD);
+                try
+                {
+                    Cruise cruise = _system.Cruises.FirstOrDefault(o => o.CruiseID == int.Parse(node.ChildNodes[0].InnerText));
+                    Port port = _system.AvailablePorts.FirstOrDefault(o => o.PortID == int.Parse(node.ChildNodes[1].InnerText));
+                    CruisePortDockManager newCPD = new CruisePortDockManager(cruise, port, int.Parse(node.ChildNodes[2].InnerText));
+                    cruise.AddPort(port);
+                    _system.AddC_P_DManager(newCPD);
+                }catch {}
             }
         }
     }
@@ -182,23 +203,26 @@ namespace SED_Coursework
             xmlDoc.Load("Cruise_Port_Passenger_Trip.xml");
             foreach (XmlNode node in xmlDoc.DocumentElement)
             {
-                Cruise cruise = _system.Cruises.FirstOrDefault(o => o.CruiseID == int.Parse(node.ChildNodes[0].InnerText));
-                Port port = _system.AvailablePorts.FirstOrDefault(o => o.PortID == int.Parse(node.ChildNodes[1].InnerText));
-                Passenger Passenger = _system.Passengers.FirstOrDefault(o => o.Passport == node.ChildNodes[2].InnerText);
-                Trip trip = _system.AvailableTrips.FirstOrDefault(o => o.TripID == int.Parse(node.ChildNodes[3].InnerText));
-                CruisePortDockManager cruisePortDockManager = _system.CruisePortDockManagers.FirstOrDefault(o => o.Port == port && o.Cruise == cruise);
-                if (_system.CPD_PassTripManagers.FirstOrDefault(o => o._Passenger == Passenger && o._PortDockManager == cruisePortDockManager) != null)
+                try
                 {
-                    cPD_PassengerTripManager = _system.CPD_PassTripManagers.FirstOrDefault(o => o._Passenger == Passenger && o._PortDockManager == cruisePortDockManager);
-                    cPD_PassengerTripManager.BookTrip(trip);
-                    
-                }
-                else
-                {
-                    CPD_PassengerTripManager newPassengerTripManager = new CPD_PassengerTripManager(Passenger, cruisePortDockManager);
-                    _system.AddCPD_PassTripManager(newPassengerTripManager);
-                    newPassengerTripManager.BookTrip(trip);
-                }
+                    Cruise cruise = _system.Cruises.FirstOrDefault(o => o.CruiseID == int.Parse(node.ChildNodes[0].InnerText));
+                    Port port = _system.AvailablePorts.FirstOrDefault(o => o.PortID == int.Parse(node.ChildNodes[1].InnerText));
+                    Passenger Passenger = _system.Passengers.FirstOrDefault(o => o.Passport == node.ChildNodes[2].InnerText);
+                    Trip trip = _system.AvailableTrips.FirstOrDefault(o => o.TripID == int.Parse(node.ChildNodes[3].InnerText));
+                    CruisePortDockManager cruisePortDockManager = _system.CruisePortDockManagers.FirstOrDefault(o => o.Port == port && o.Cruise == cruise);
+                    if (_system.CPD_PassTripManagers.FirstOrDefault(o => o._Passenger == Passenger && o._PortDockManager == cruisePortDockManager) != null)
+                    {
+                        cPD_PassengerTripManager = _system.CPD_PassTripManagers.FirstOrDefault(o => o._Passenger == Passenger && o._PortDockManager == cruisePortDockManager);
+                        cPD_PassengerTripManager.BookTrip(trip);
+
+                    }
+                    else
+                    {
+                        CPD_PassengerTripManager newPassengerTripManager = new CPD_PassengerTripManager(Passenger, cruisePortDockManager);
+                        _system.AddCPD_PassTripManager(newPassengerTripManager);
+                        newPassengerTripManager.BookTrip(trip);
+                    }
+                }catch {}
             }
         }
     }
@@ -249,13 +273,17 @@ namespace SED_Coursework
 
                 foreach (Trip trip in _system.AvailableTrips)
                 {
-                    writer.WriteStartElement("Trip");
+                    try
+                    {
+                        writer.WriteStartElement("Trip");
 
-                    writer.WriteElementString("id", trip.TripID.ToString());
-                    writer.WriteElementString("name", trip.TripName);
-                    writer.WriteElementString("cost", trip.TripCost.ToString());
+                        writer.WriteElementString("id", trip.TripID.ToString());
+                        writer.WriteElementString("name", trip.TripName);
+                        writer.WriteElementString("cost", trip.TripCost.ToString());
 
-                    writer.WriteEndElement();
+                        writer.WriteEndElement();
+                    }
+                    catch { }
                 }
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
@@ -281,12 +309,16 @@ namespace SED_Coursework
 
                 foreach (Port port in _system.AvailablePorts)
                 {
-                    writer.WriteStartElement("Port");
+                    try
+                    {
+                        writer.WriteStartElement("Port");
 
-                    writer.WriteElementString("id", port.PortID.ToString());
-                    writer.WriteElementString("name", port.PortName);
+                        writer.WriteElementString("id", port.PortID.ToString());
+                        writer.WriteElementString("name", port.PortName);
 
-                    writer.WriteEndElement();
+                        writer.WriteEndElement();
+                    }
+                    catch { }
                 }
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
@@ -313,13 +345,16 @@ namespace SED_Coursework
 
                 foreach (Passenger Passenger in _system.Passengers)
                 {
-                    writer.WriteStartElement("Passenger");
+                    try
+                    {
+                        writer.WriteStartElement("Passenger");
 
-                    writer.WriteElementString("passport", Passenger.Passport);
-                    writer.WriteElementString("fname", Passenger.FName);
-                    writer.WriteElementString("sname", Passenger.SName);
+                        writer.WriteElementString("passport", Passenger.Passport);
+                        writer.WriteElementString("fname", Passenger.FName);
+                        writer.WriteElementString("sname", Passenger.SName);
 
-                    writer.WriteEndElement();
+                        writer.WriteEndElement();
+                    }catch { }
                 }
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
@@ -345,13 +380,17 @@ namespace SED_Coursework
 
                 foreach (Cruise cruise in _system.Cruises)
                 {
-                    writer.WriteStartElement("Cruise");
+                    try
+                    {
+                        writer.WriteStartElement("Cruise");
 
-                    writer.WriteElementString("id", cruise.CruiseID.ToString());
-                    writer.WriteElementString("name", cruise.CruiseName);
-                    writer.WriteElementString("cost", cruise.CruiseCost.ToString());
+                        writer.WriteElementString("id", cruise.CruiseID.ToString());
+                        writer.WriteElementString("name", cruise.CruiseName);
+                        writer.WriteElementString("cost", cruise.CruiseCost.ToString());
 
-                    writer.WriteEndElement();
+                        writer.WriteEndElement();
+                    }
+                    catch { }
                 }
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
@@ -379,12 +418,16 @@ namespace SED_Coursework
                 {
                     foreach (Trip trip in port.PortTrips)
                     {
-                        writer.WriteStartElement("Port_Trip");
+                        try
+                        {
+                            writer.WriteStartElement("Port_Trip");
 
-                        writer.WriteElementString("portid", port.PortID.ToString());
-                        writer.WriteElementString("tripid", trip.TripID.ToString());
+                            writer.WriteElementString("portid", port.PortID.ToString());
+                            writer.WriteElementString("tripid", trip.TripID.ToString());
 
-                        writer.WriteEndElement();
+                            writer.WriteEndElement();
+                        }
+                        catch { }
                     }
                 }
                 writer.WriteEndElement();
@@ -413,12 +456,15 @@ namespace SED_Coursework
                 {
                     foreach (Passenger Passenger in cruise.CruisePassengers)
                     {
-                        writer.WriteStartElement("CruisePassenger");
+                        try
+                        {
+                            writer.WriteStartElement("CruisePassenger");
 
-                        writer.WriteElementString("cruiseid", cruise.CruiseID.ToString());
-                        writer.WriteElementString("Passengerpassport", Passenger.Passport);
+                            writer.WriteElementString("cruiseid", cruise.CruiseID.ToString());
+                            writer.WriteElementString("Passengerpassport", Passenger.Passport);
 
-                        writer.WriteEndElement();
+                            writer.WriteEndElement();
+                        }catch { }
                     }
                 }
                 writer.WriteEndElement();
@@ -445,13 +491,17 @@ namespace SED_Coursework
 
                 foreach (CruisePortDockManager dockManager in _system.CruisePortDockManagers)
                 {
-                    writer.WriteStartElement("Cruise_Port");
+                    try
+                    {
+                        writer.WriteStartElement("Cruise_Port");
 
-                    writer.WriteElementString("cruiseid", dockManager.Cruise.CruiseID.ToString());
-                    writer.WriteElementString("portid", dockManager.Port.PortID.ToString());
-                    writer.WriteElementString("maxdays", dockManager.MaxDays.ToString());
+                        writer.WriteElementString("cruiseid", dockManager.Cruise.CruiseID.ToString());
+                        writer.WriteElementString("portid", dockManager.Port.PortID.ToString());
+                        writer.WriteElementString("maxdays", dockManager.MaxDays.ToString());
 
-                    writer.WriteEndElement();
+                        writer.WriteEndElement();
+                    }
+                    catch { }
                 }
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
@@ -480,14 +530,18 @@ namespace SED_Coursework
                 {
                     foreach (Trip trip in _PassengerTripManager.Trips)
                     {
-                        writer.WriteStartElement("CPPT");
+                        try
+                        {
+                            writer.WriteStartElement("CPPT");
 
-                        writer.WriteElementString("cruiseid", _PassengerTripManager._PortDockManager.Cruise.CruiseID.ToString());
-                        writer.WriteElementString("portid", _PassengerTripManager._PortDockManager.Port.PortID.ToString());
-                        writer.WriteElementString("Passengerpassport", _PassengerTripManager._Passenger.Passport);
-                        writer.WriteElementString("tripid", trip.TripID.ToString());
+                            writer.WriteElementString("cruiseid", _PassengerTripManager._PortDockManager.Cruise.CruiseID.ToString());
+                            writer.WriteElementString("portid", _PassengerTripManager._PortDockManager.Port.PortID.ToString());
+                            writer.WriteElementString("Passengerpassport", _PassengerTripManager._Passenger.Passport);
+                            writer.WriteElementString("tripid", trip.TripID.ToString());
 
-                        writer.WriteEndElement();
+                            writer.WriteEndElement();
+                        }
+                        catch { }
                     }
                 }
                 writer.WriteEndElement();

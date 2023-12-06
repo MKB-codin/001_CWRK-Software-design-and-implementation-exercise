@@ -556,7 +556,7 @@ namespace SED_Coursework
         public override void Select()
         {
             _cruise.debug = !_cruise.debug;
-            _cruise.RemovePassenger(_Passenger);
+            _Passenger.UnAssignCruiseFromPassenger(_cruise);
             _cruise.debug = !_cruise.debug;
         }
         public override string MenuText()
@@ -901,7 +901,9 @@ namespace SED_Coursework
 
         public override void Select()
         {
+            _system.debug = !_system.debug;
             _system.RemovePort(_port);
+            _system.debug = !_system.debug;
         }
         public override string MenuText()
         {
@@ -1116,12 +1118,21 @@ namespace SED_Coursework
 
         public override void Select()
         {
+            
             CPD_PassengerTripManager cpdPT = _system.CPD_PassTripManagers.FirstOrDefault(o => o._Passenger == _Passenger && o._PortDockManager.Cruise == _Cruise);
-
-            cpdPT.CalculatePassengerTotalCost();
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine($"£{_Passenger.PassengerTotalCost}\n");
-            Console.ForegroundColor = ConsoleColor.White;
+            if (cpdPT != null)
+            {
+                cpdPT.CalculatePassengerTotalCost();
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                Console.WriteLine($"£{_Passenger.PassengerTotalCost}\n");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                Console.WriteLine($"£{_Cruise.CruiseCost}\n");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
         }
         public override string MenuText()
         {
@@ -1138,12 +1149,13 @@ namespace SED_Coursework
         public override void Select()
         {
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine($"{_Passenger.ToString()} Assigned to Cruises:");
+            Console.WriteLine($"{_Passenger.ToString()} Assigned to Cruises:\n");
             foreach(Cruise cruise in _Passenger.P_Cruises)
             {
                 Console.WriteLine( cruise.ToString() );
             }
             Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine();
         }
         public override string MenuText()
         {
@@ -1190,7 +1202,7 @@ namespace SED_Coursework
         }
         public override string MenuText()
         {
-            return "UnAssign Cruise from Passenger";
+            return _Cruise.ToString();
         }
     }
 

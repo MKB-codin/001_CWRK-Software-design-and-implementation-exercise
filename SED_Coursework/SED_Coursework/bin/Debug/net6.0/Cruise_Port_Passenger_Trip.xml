@@ -2,50 +2,8 @@
 <CPPTs>
 	<CPPT>
 		<cruiseid>0</cruiseid>
-		<portid>3</portid>
-		<Passengerpassport>654879321</Passengerpassport>
-		<tripid>1</tripid>
-	</CPPT>
-	<CPPT>
-		<cruiseid>1</cruiseid>
-		<portid>4</portid>
-		<Passengerpassport>654879321</Passengerpassport>
-		<tripid>2</tripid>
-	</CPPT>
-	<CPPT>
-		<cruiseid>1</cruiseid>
-		<portid>4</portid>
-		<Passengerpassport>654879321</Passengerpassport>
-		<tripid>5</tripid>
-	</CPPT>
-	<CPPT>
-		<cruiseid>1</cruiseid>
-		<portid>4</portid>
-		<Passengerpassport>123456789</Passengerpassport>
-		<tripid>5</tripid>
-	</CPPT>
-	<CPPT>
-		<cruiseid>0</cruiseid>
-		<portid>3</portid>
-		<Passengerpassport>798564123</Passengerpassport>
-		<tripid>5</tripid>
-	</CPPT>
-	<CPPT>
-		<cruiseid>2</cruiseid>
 		<portid>1</portid>
 		<Passengerpassport>654879321</Passengerpassport>
-		<tripid>3</tripid>
-	</CPPT>
-	<CPPT>
-		<cruiseid>2</cruiseid>
-		<portid>1</portid>
-		<Passengerpassport>123456789</Passengerpassport>
-		<tripid>3</tripid>
-	</CPPT>
-	<CPPT>
-		<cruiseid>3</cruiseid>
-		<portid>1</portid>
-		<Passengerpassport>798564123</Passengerpassport>
 		<tripid>3</tripid>
 	</CPPT>
 </CPPTs>

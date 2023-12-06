@@ -10,7 +10,7 @@ namespace SED_Coursework
     class AdminSystem
     {
         public bool debug = false;
-        private string AdminPassword { get; set; } = "pa$$w0rd";
+        private static string AdminPassword { get; set; } = "pa$$w0rd";
 
         public bool CheckPassword(string password)
         {
@@ -407,15 +407,15 @@ namespace SED_Coursework
         {
             return Trips.Count;
         }
-        public void BookTrip(Trip trip)
+        public void BookTrip(Trip pTrip)
         {
-            Trips.Add(trip);
+            Trips.Add(pTrip);
         }
-        public void RemoveTrip(Trip trip)
+        public void RemoveTrip(Trip pTrip)
         {
-            if (Trips.Contains(trip))
+            if (Trips.Contains(pTrip))
             {
-                Trips.Remove(trip);
+                Trips.Remove(pTrip);
             }
             else
             {
@@ -548,7 +548,7 @@ namespace SED_Coursework
         public bool debug = false;
         public string PortName { get; set; }
         public int PortID { get; private set; }
-        private static int NextPortID { get; set; } = 1;
+        private static int NextPortID { get; set; } = 0;
         public List<Trip> PortTrips { get; private set; }
 
         public Port(int portId, string portName)
@@ -621,7 +621,7 @@ namespace SED_Coursework
     {
         public string TripName { get; set; }
         public int TripID { get; private set; }
-        private static int NextTripID { get; set; } = 1;
+        private static int NextTripID { get; set; } = 0;
         public decimal TripCost { get; private set; } = 0;
 
 
